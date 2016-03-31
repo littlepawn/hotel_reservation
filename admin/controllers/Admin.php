@@ -2,16 +2,25 @@
 class Admin extends CI_Controller{
 	public function __construct(){
 		parent::__construct();
+		
 		$this->load->model("muser");
+		// $this->load->helper('url');
+		$this->load->library('session');
+		if (!$this->session->userdata('admin')){
+            //跳转到用户登陆页面
+            redirect("?c=auth&m=login");
+        }
 	}
 
 	public function index(){
-		$this->load->view("main");
+		$data['users']=$this->get_user_list();
+		$this->load->view("admin_index",$data);
 	}
 
 	public function get_user_list(){
 		$user_array=$this->muser->get_user_list();
-		$this->dump($user_array);
+		// $this->dump($user_array);
+		return $user_array;
 	}
 
 
@@ -32,6 +41,11 @@ class Admin extends CI_Controller{
         if ($return) { return $content; }
         echo $content;
         return null;
+	}
+
+	public function test(){
+		echo base_url()."<br>";
+		echo site_url();
 	}
 
 }
