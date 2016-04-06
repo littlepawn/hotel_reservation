@@ -47,4 +47,9 @@ Temporary Items
 .apdisk
 
 #ignore
+/.gitignore
 /sftp-config.json
+/.idea/*
+/user_guide/*
+/vendor/*
+/session_file/*
