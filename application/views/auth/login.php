@@ -36,9 +36,10 @@
   			<div class="col-md-4 col-md-offset-1">
   				<form role="form" method="post" onsubmit="return checkinfo()">
   					<h2>登录</h2>
+            <?php echo $_SESSION['error'];?>
   					<div class="form-group has-feedback" id="demail">
  					   <label for="InputEmail">账号</label>
-   					   <input type="text" class="form-control"  id="username" placeholder="Enter email/username" name="username">
+   					   <input type="text" class="form-control"  id="username" placeholder="Enter email / username" name="username">
    					   <span class="help-block" style="display: none;" id="pwarning">邮箱格式错误</span>
   					</div>
   					<div class="form-group">

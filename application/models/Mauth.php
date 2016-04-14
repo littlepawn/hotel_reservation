@@ -14,4 +14,23 @@ class Mauth extends CI_Model{
         $query=$this->db->get($this->_user_db);
         return $query->row_array();
     }
+
+    public function get_user_by_username($data){
+        $this->db->where("username",$data);
+        $query=$this->db->get($this->_user_db);
+        return $query->row_array();
+    }
+
+    public function get_user_by_email($data){
+        $this->db->where("email",$data);
+        $query=$this->db->get($this->_user_db);
+        return $query->row_array();
+    }
+
+    public function insert_user($data){
+        $this->db->insert($this->_user_db,$data);
+        if($this->db->affected_rows()>0)
+            return $this->db->insert_id();
+        return false;
+    }
 }

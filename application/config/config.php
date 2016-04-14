@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = '';
+$config['base_url'] = 'http://littlepawn.website/';
 
 /*
 |--------------------------------------------------------------------------
@@ -224,7 +224,7 @@ $config['log_threshold'] = 2;
 | application/logs/ directory. Use a full server path with trailing slash.
 |
 */
-$config['log_path'] = '';
+$config['log_path'] = '/alidata/www/littlepawn.website/application/logs';
 
 /*
 |--------------------------------------------------------------------------
@@ -238,7 +238,7 @@ $config['log_path'] = '';
 | Note: Leaving it blank will default to 'php'.
 |
 */
-$config['log_file_extension'] = '/alidata/www/littlwpawn.website/application/logs';
+$config['log_file_extension'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -374,6 +374,7 @@ $config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;
+$config['sess_save_path'] = '/alidata/www/littlepawn.website/session_file';
 
 /*
 |--------------------------------------------------------------------------

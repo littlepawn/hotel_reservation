@@ -41,9 +41,9 @@
 	<div class="container" id="mainbody">
 		<div class="row">
 			<div class="col-md-6">
+			<?php echo $_SESSION['error'];?>
 				<form class="form-horizontal" role="form" method="post">
 					<div class="form-group" id="demail">
-					   <input type="hidden" name="id"/>
 					   <label for="inputEmail" class="col-md-2 control-label">邮箱</label>
 					   <div class="col-md-6">
    					   	   <input type="text" class="form-control" name="email" id="InputEmail" placeholder="Email">
