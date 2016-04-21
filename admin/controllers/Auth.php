@@ -43,9 +43,10 @@ class Auth extends CI_Controller{
 		}
 
 		if ($res) {
-			$this->session->set_userdata("admin",array('email => $email'));
+			$this->session->set_userdata("admin",array('email' => $email));
 			$reponse =  array('state'=>'0');
-			echo json_encode($reponse);
+			redirect("?c=admin&m=index");
+//			echo json_encode($reponse);
 		}
 		else {
 			$reponse =  array('state'=>'1');

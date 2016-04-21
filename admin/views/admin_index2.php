@@ -55,9 +55,9 @@
       <li class="admin-parent">
         <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 页面模块 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
         <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
-          <li><a href="admin-user.html" class="am-cf"><span class="am-icon-check"></span> 用户管理</a></li>
+          <li><a href="?c=admin&m=index" class="am-cf"><span class="am-icon-check"></span> 用户管理</a></li>
           <li><a href="?c=admin&m=get_hotel_list"><span class="am-icon-puzzle-piece"></span> 酒店管理</a></li>
-          <li><a href="?c=admin&m=get_reservation_list"><span class="am-icon-th"></span> 订单管理</a></li>
+          <li><a href="admin-gallery.html"><span class="am-icon-th"></span> 订单管理</a></li>
           <li><a href="admin-log.html"><span class="am-icon-calendar"></span> 评论管理</a></li>
           <li><a href="admin-404.html"><span class="am-icon-bug"></span> 404</a></li>
         </ul>
@@ -95,15 +95,16 @@
         <table class="am-table am-table-bd am-table-striped admin-content-table">
           <thead>
           <tr>
-            <th>ID</th><th>用户名</th><th>管理</th>
+            <th>ID</th><th>用户</th><th>标题</th><th>简介</th><th>管理</th>
           </tr>
           </thead>
           <tbody>
           <?php
-            foreach ($users as $key => $user) {
-          ?>  
-            
-          <tr><td><?php echo $user['_id'];?></td><td><?php echo $user['email'];?></td>
+            foreach ($reservations as $key => $reservation) {
+          ?>
+
+          <tr><td><?php echo $reservation['_id'];?></td><td><?php echo $reservation['username'];?></td><td><?php echo $reservation['title'];?></td>
+              <td><?php echo $reservation['content'];?></td>
             <td>
               <div class="am-dropdown" data-am-dropdown>
                 <button class="am-btn am-btn-default am-btn-xs am-dropdown-toggle" data-am-dropdown-toggle><span class="am-icon-cog"></span> <span class="am-icon-caret-down"></span></button>
@@ -115,7 +116,7 @@
               </div>
             </td>
           </tr>
-          <?php 
+          <?php
             }
           ?>
           </tbody>

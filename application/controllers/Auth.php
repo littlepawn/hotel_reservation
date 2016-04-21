@@ -4,8 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Auth extends CI_Controller{
     public function __construct(){
         parent::__construct();
-        $this->load->library('session');
-        $this->load->helper('url');
+//        $this->load->library('session');
+//        $this->load->helper('url');
     }
 
     public function login(){
@@ -25,6 +25,11 @@ class Auth extends CI_Controller{
             }
         }
         $this->load->view("auth/login");
+    }
+
+    public function login_out(){
+        unset($_SESSION['user']);
+        echo "<script>location.href='".$_SERVER["HTTP_REFERER"]."';</script>";
     }
 
     public function register(){

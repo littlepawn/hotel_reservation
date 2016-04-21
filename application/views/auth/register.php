@@ -27,7 +27,7 @@
 	  <div class="container">
 	    <div class="row">
 	    	<div class="col-md-8 col-md-offset-1">
-	      		<a class="navbar-brand" href="__CONTROLLER__/index">
+	      		<a class="navbar-brand" href="?c=index&m=index">
 	        		<p>连锁酒店预定系统</p>
 	      		</a>
 	      	</div>
@@ -41,7 +41,7 @@
 	<div class="container" id="mainbody">
 		<div class="row">
 			<div class="col-md-6">
-			<?php echo $_SESSION['error'];?>
+			<?php echo empty($_SESSION['error'])?"":$_SESSION['error'];?>
 				<form class="form-horizontal" role="form" method="post">
 					<div class="form-group" id="demail">
 					   <label for="inputEmail" class="col-md-2 control-label">邮箱</label>

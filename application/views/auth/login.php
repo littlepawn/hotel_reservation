@@ -23,7 +23,7 @@
   	<div class="container">
   		<div class="row" id="header">
   			<div class="col-md-12 text-center">
-  				<a style="text-decoration:none" href=""><h1>连锁酒店预定系统</h1></a>
+  				<a style="text-decoration:none" href="?c=index&m=index"><h1>连锁酒店预定系统</h1></a>
   			</div>
   		</div>
   		<hr />
@@ -36,7 +36,7 @@
   			<div class="col-md-4 col-md-offset-1">
   				<form role="form" method="post" onsubmit="return checkinfo()">
   					<h2>登录</h2>
-            <?php echo $_SESSION['error'];?>
+            <?php echo !isset($_SESSION['error'])?"":"<p style='color: red'>".$_SESSION['error']."</p>";?>
   					<div class="form-group has-feedback" id="demail">
  					   <label for="InputEmail">账号</label>
    					   <input type="text" class="form-control"  id="username" placeholder="Enter email / username" name="username">

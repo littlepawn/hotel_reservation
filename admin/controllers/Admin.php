@@ -23,6 +23,16 @@ class Admin extends CI_Controller{
 		return $user_array;
 	}
 
+	public function get_hotel_list(){
+		$data['hotels']=$this->muser->get_hotel_list();
+		$this->load->view("admin_index1",$data);
+	}
+
+	public function get_reservation_list(){
+		$data['reservations']=$this->muser->get_reservation_list();
+		$this->load->view("admin_index2",$data);
+	}
+
 
 	/**
 	*  	辅助函数	
