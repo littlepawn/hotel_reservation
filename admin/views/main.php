@@ -121,20 +121,6 @@
 				</ul>
 			</dd>
 		</dl>
-		<dl id="menu-tongji">
-			<dt><i class="Hui-iconfont">&#xe61a;</i> 系统统计<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a _href="charts-1.html" href="javascript:void(0)">折线图</a></li>
-					<li><a _href="charts-2.html" href="javascript:void(0)">时间轴折线图</a></li>
-					<li><a _href="charts-3.html" href="javascript:void(0)">区域图</a></li>
-					<li><a _href="charts-4.html" href="javascript:void(0)">柱状图</a></li>
-					<li><a _href="charts-5.html" href="javascript:void(0)">饼状图</a></li>
-					<li><a _href="charts-6.html" href="javascript:void(0)">3D柱状图</a></li>
-					<li><a _href="charts-7.html" href="javascript:void(0)">3D饼状图</a></li>
-				</ul>
-			</dd>
-		</dl>
 		<dl id="menu-system">
 			<dt><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
@@ -162,7 +148,7 @@
 	<div id="iframe_box" class="Hui-article">
 		<div class="show_iframe">
 			<div style="display:none" class="loading"></div>
-			<iframe scrolling="yes" frameborder="0" src="welcome.html"></iframe>
+			<iframe scrolling="yes" frameborder="0" src="welcome.php"></iframe>
 		</div>
 	</div>
 </section>
