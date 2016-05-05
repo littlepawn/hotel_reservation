@@ -14,7 +14,20 @@ class Admin extends CI_Controller{
 
 	public function index(){
 		$data['users']=$this->get_user_list();
-		$this->load->view("admin_index",$data);
+		$this->load->view("main",$data);
+	}
+
+	public function user(){
+		$data['users']=$this->get_user_list();
+		$this->load->view("user",$data);
+	}
+
+	public function admin_role(){
+		$this->load->view("admin_role");
+	}
+
+	public function admin_list(){
+		$this->load->view("admin_list");
 	}
 
 	public function get_user_list(){

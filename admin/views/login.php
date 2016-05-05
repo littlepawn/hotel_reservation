@@ -1,69 +1,75 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-<head lang="en">
-  <meta charset="UTF-8">
-  <title>Login Page | Amaze UI Example</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-siteapp" />
-  <link rel="alternate icon" type="image/png" href="../public/i/favicon.png">
-  <link rel="stylesheet" href="../public/css/amazeui.min.css"/>
-  <style>
-    .header {
-      text-align: center;
-    }
-    .header h1 {
-      font-size: 200%;
-      color: #333;
-      margin-top: 30px;
-    }
-    .header p {
-      font-size: 14px;
-    }
-  </style>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="public/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="public/css/H-ui.login.css" rel="stylesheet" type="text/css" />
+<link href="public/css/style.css" rel="stylesheet" type="text/css" />
+<link href="public/lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>后台登录</title>
+<meta name="keywords" content="H-ui.admin v2.3,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
+<meta name="description" content="H-ui.admin v2.3，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
-<div class="header">
-  <div class="am-g">
-    <h1>后台管理页面</h1>
-    <!--<p>Integrated Development Environment<br/>代码编辑，代码生成，界面设计，调试，编译</p>-->
-  </div>
-  <hr />
-</div>
-<div class="am-g">
-  <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
-    <h3>登录</h3>
-    <hr>
-    <!--<div class="am-btn-group">
-      <a href="#" class="am-btn am-btn-secondary am-btn-sm"><i class="am-icon-github am-icon-sm"></i> Github</a>
-      <a href="#" class="am-btn am-btn-success am-btn-sm"><i class="am-icon-google-plus-square am-icon-sm"></i> Google+</a>
-      <a href="#" class="am-btn am-btn-primary am-btn-sm"><i class="am-icon-stack-overflow am-icon-sm"></i> stackOverflow</a>
-    </div>-->
-    <br>
-    <br>
-
-    <form method="post" class="am-form" action="?c=auth&m=login_verify">
-      <label for="email">邮箱:</label>
-      <input type="email" name="email" id="email" value="">
-      <br>
-      <label for="password">密码:</label>
-      <input type="password" name="password" id="password" value="">
-      <br>
-      <label for="remember-me">
-        <input id="remember-me" type="checkbox">
-        记住密码
-      </label>
-      <br />
-      <div class="am-cf">
-        <input type="submit" name="" value="登 录" class="am-btn am-btn-primary am-btn-sm am-fl">
-        <input type="submit" name="" value="忘记密码 ^_^? " class="am-btn am-btn-default am-btn-sm am-fr">
+<input type="hidden" id="TenantId" name="TenantId" value="" />
+<div class="header"></div>
+<div class="loginWraper">
+  <div id="loginform" class="loginBox">
+    <h1 style="margin-left: 40%">后台管理</h1>
+    <form class="form form-horizontal" action="?c=auth&m=login_verify" method="post" onsubmit="return checkinfo();">
+      <div class="row cl">
+        <label class="form-label col-3"><i class="Hui-iconfont">&#xe60d;</i></label>
+        <div class="formControls col-8">
+          <input id="email" name="email" type="text" placeholder="账户" class="input-text size-L">
+        </div>
+      </div>
+      <div class="row cl">
+        <label class="form-label col-3"><i class="Hui-iconfont">&#xe60e;</i></label>
+        <div class="formControls col-8">
+          <input id="password" name="password" type="password" placeholder="密码" class="input-text size-L">
+        </div>
+      </div>
+      <div class="row">
+        <div class="formControls col-8 col-offset-3">
+          <label for="online">
+            <input type="checkbox" name="online" id="online" value="">
+            使我保持登录状态</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="formControls col-8 col-offset-3">
+          <input name="" type="submit" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+          <input name="" type="reset" class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+        </div>
       </div>
     </form>
-    <hr>
-    <p>© 2016 Littlepawn </p>
   </div>
 </div>
+<div class="footer">Copyright by littlepawn</div>
+<script type="text/javascript" src="public/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="public/js/H-ui.js"></script>
+
+<script>
+function checkinfo(){
+    if($('#email').val().length==0||$('#password').val().length==0){
+      return false;
+    }
+
+    return true;
+  }
+</script>
 </body>
 </html>
