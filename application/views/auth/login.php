@@ -30,7 +30,7 @@
   		<div class="row">
   			<div class="col-md-5 col-md-offset-1">
   				<div class="thumbnail">
-     				 <img src="/public/i/1.jpg" alt="..." >
+     				 <img src="/public/i/2.jpg" alt="..." >
     			</div>
   			</div>
   			<div class="col-md-4 col-md-offset-1">

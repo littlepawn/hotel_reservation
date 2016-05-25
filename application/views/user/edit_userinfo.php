@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>连锁酒店预定</title>
     <link href="/public/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+    <script src='/public/js/bootstrap.min.js'></script>
     <style type="text/css">
     	body {
     		padding-top: 50px;
@@ -27,10 +29,6 @@
     	#phone{
     		text-align: center;
     	}
-    	#username{
-    		text-align: center;
-    	}
-
     </style>
   </head>
   <body>
@@ -53,6 +51,7 @@
                 </button>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" id="name">
                      <li><a tabindex="-1" href="?c=index&m=index">返回主页</a></li>
+                     <li><a tabindex="-1" href="javascript:history.go(-1);">返回上一页</a></li>
 					 <li><a tabindex="-1" href="?c=index&m=reservation">查看预订信息</a></li>
                      <li><a tabindex="-1" href="?c=auth&m=login_out">退出</a></li>
                 </ul>
@@ -70,54 +69,55 @@
 			<div class="col-md-10">
 				    <ul class="nav nav-tabs">
 					    <li class="active">
-					    	<a href="">个人资料</a>
+					    	<a href="javascript:;">修改个人资料</a>
 					    </li>
 					</ul>
 					<div class="col-md-4" id="head-sculpture">
-						<img class="img-thumbnail" src="/public/i/default.jpg" alt="..." >
-						<!--<button class="btn btn-primary btn-lg" type="button" id="change">更改头像</button>-->
+                        <form>
+                            <img class="img-thumbnail" src="public/i/default.jpg" alt="..." width="200px" height="200px">
+                            <input type="file" class="form-control col-md-1">
+                            <button class="btn btn-primary btn-lg" type="submit">更改头像</button>
+                        </form>
 					</div>
 					<div class="col-md-8">
-						<form class="form-horizontal" role="form">
+						<form class="form-horizontal" role="form" action="" method="post">
 							<div class="form-group">
 								<label class="control-label col-md-2">用户名</label>
-								<label class="control-label col-md-2" id="username">
-									<?php echo $user['username'];?>
-								</label>
+								<div class="col-md-6">
+									<input class="form-control" type="text" name="name" placeholder="xx">
+								</div>
 								<!--<div class="col-md-4"></div>-->
 							</div>
 
 							<div class="form-group">
 								<label class="control-label col-md-2">登录密码</label>
 								<label class="control-label col-md-2" id="password">已设置</label>
-								<!--<div class="col-md-2 col-md-offset-1">
-									<a class="btn btn btn-default" href="">修改</a>
-								</div>-->
+								<div class="col-md-2 col-md-offset-1">
+									<a class="btn btn btn-default" href="__CONTROLLER__/editpassword">修改</a>
+								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="control-label col-md-2">邮箱</label>
-								<label class="control-label col-md-3" id="email">
-                                    <?php echo $user['email'];?>
-                                </label>
-								<!--<div class="col-md-2 col-md-offset-1">
-									<a class="btn btn btn-default" href="">修改</a>
-								</div>-->
+								<label class="control-label col-md-3" id="email">xx</label>
+								<div class="col-md-2 col-md-offset-1">
+									<a class="btn btn btn-default" href="__CONTROLLER__/editemail">修改</a>
+								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="control-label col-md-2">手机</label>
-								<label class="control-label col-md-2" id="phone">12345678901</label>
-								<!--<div class="col-md-2 col-md-offset-1">
-									<a class="btn btn btn-default" href="">修改</a>
-								</div>-->
+								<label class="control-label col-md-2" id="phone">xx</label>
+								<div class="col-md-2 col-md-offset-1">
+									<a class="btn btn btn-default" href="__CONTROLLER__/editphone">修改</a>
+								</div>
 							</div>
 
 							<div class="form-group">
 								 <label class="control-label col-md-2">性别</label>
 					   			 <div class="col-md-6">
-					    			  <input class="radio radio-inline" type="radio" value="option1" name="sex" checked="checked" disabled="disabled">男
-					    			  <input class="radio radio-inline" type="radio" value="option1" name="sex" disabled="disabled">女
+						    			  <input class="radio radio-inline" type="radio" value="男" name="sex" checked="checked">男
+						    			  <input class="radio radio-inline" type="radio" value="女" name="sex">女
 					   			 </div>
 							</div>
 
@@ -125,7 +125,7 @@
 							<div class="form-group">
 								<div class="col-md-1"></div>
 								<div class="col-md-5 col-md-offset-1">
-									<a class="btn btn-info btn-lg btn-block" href="?c=user&m=show_edit_info" id="edit">修改个人资料</a>
+									<input class="btn btn-info btn-lg btn-block" type="submit" value="保存"/>
 								</div>
 								<!--<div class="col-md-7"></div>-->
 							</div>
@@ -137,13 +137,8 @@
 		</div>
   	</div>
 
-    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-    <script src="/public/js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-		    $("input").height("25px");
-	</script>
-	<script type="text/javascript">
-		    $(".add-on").height("25px");
-	 </script>
   </body>
+  <script type="text/javascript">
+	    $(".add-on").height("25px");
+  </script>
 </html>

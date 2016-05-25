@@ -7,7 +7,8 @@ class Mhotel extends CI_Model{
         $this->_hotel_db="hotel";
     }
 
-    public function get_hotel_info(){
+    public function get_hotel_info($cityID){
+        $this->db->where("cityID",$cityID);
         $query=$this->db->get($this->_hotel_db);
         return $query->result_array();
     }

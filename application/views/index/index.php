@@ -6,28 +6,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>连锁酒店预定系统</title>
     <link href="/public/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="/public/style/list.css"/>
+	<link rel="stylesheet" type="text/css" href="/public/style/manhuaDate.1.0.css"/><script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+	<script src="/public/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/public/js/jquery-1.5.1.js"></script><!--日期控件，JS库版本不能过高否则tab会失效-->
+
+	<script type="text/javascript" src="/public/js/ui.tab.js"></script>
+	<script type="text/javascript">
+	<!--选项卡切换-->
+	$(document).ready(function(){
+		var tab = new $.fn.tab({
+			tabList:"#demo1 .ui-tab-container .ui-tab-list li",
+			contentList:"#demo1 .ui-tab-container .ui-tab-content"
+		});
+		var tab = new $.fn.tab({
+			tabList:"#demo1 .ui-tab-container .ui-tab-list2 li",
+			contentList:"#demo1 .ui-tab-container .ui-tab-content2"
+		});
+	});
+	</script>
+
+	<script type="text/javascript" src="/public/js/datejs.js"></script>
+	<script type="text/javascript">
+	<!--日历选择器-->
+	$(function (){
+		$("input.mh_date").datejs({
+			Event : "click",//可选
+			Left : 0,//弹出时间停靠的左边位置
+			Top : -16,//弹出时间停靠的顶部边位置
+			fuhao : "-",//日期连接符默认为-
+			isTime : false,//是否开启时间值默认为false
+			beginY : 2010,//年份的开始默认为1949
+			endY :2015//年份的结束默认为2049
+		});
+	});
+	</script>
+
+	<script type="text/javascript">
+	<!--点击更多-->
+	$(document).ready(function(e){
+		$("#selectList").find(".more").toggle(function(){
+			$(this).addClass("more_bg");
+			$(".more-none").show()
+		},function(){
+			$(this).removeClass("more_bg");
+			$(".more-none").hide();
+		});
+	});
+	</script>
+
 
     <style type="text/css">
     	body {
     		padding-top: 50px;
     	}
-		#carousel-info{
-			margin: 10px auto;
-    		padding: 20px;
-		}
-    	#location-info{
-    		margin: 10px auto;
-    		padding: 20px;
-    		border: 1px solid #28A4FF;
-    	}
 		.house-info{
-			margin: 20px auto;
+			margin: 5px auto;
 		}
 		#name{
     		margin-left: 120px;
-    	}
-    	.house-list{
-    		margin-top: 20px;
     	}
     </style>
   </head>
@@ -67,205 +104,154 @@
 	</nav>
 
 	<div class="container">
-		<div class="row">
-			<div class="col-md-1"></div>
-			<div class="col-md-10"  id="carousel-info">
-                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                  <!-- Indicators -->
-                  <ol class="carousel-indicators">
-                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                  </ol>
-
-                  <!-- Wrapper for slides -->
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="/public/i/3.jpg" alt="...">
-                      <div class="carousel-caption">
-                        酒店推荐
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Controls -->
-                  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </div>
-			</div>
-			<div class="col-md-1"></div>
-		</div>
-		<hr>
 
 		<!-- 筛选 -->
 		<div class="row">
-			<div class="col-md-1"></div>
-			<div class="col-md-10"  id="location-info">
-				<ul class="nav nav-tabs" role="tablist" id="mytab">
-				  <li role="presentation" class="active"><a href="#xuzhou" role="tab" data-toggle="tab">徐州</a></li>
-				  <li role="presentation" class="dropdown">
-				    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-				    	其他地区 <span class="caret"></span>
-				    </a>
-				    <ul class="dropdown-menu" role="menu">
-				      <li><a href="#beijing" role="tab" data-toggle="tab">北京</a></li>
-				      <li><a href="#nanjing" role="tab" data-toggle="tab">南京</a></li>
-				      <li><a href="#shanghai" role="tab" data-toggle="tab">上海</a></li>
-				    </ul>
-				  </li>
-				</ul>
-				<div class="tab-content">
-					<div role="tabpanel" class="tab-pane fade in active" id="xuzhou" >
-						<label id="label" >酒店位置
-							<a class="btn active" href="">全徐州</a>
-							<a class="btn" href="">铜山</a>
-							<a class="btn" href="">泉山</a>
-							<a class="btn" href="">贾汪</a>
-						</label>
-						<br />
-						<label>价格区间
-							<a class="btn active" href="">不限</a>
-							<a class="btn" href="">200以下</a>
-							<a class="btn" href="">200-500</a>
-							<a class="btn" href="">500-1000</a>
-							<a class="btn" href="">1000以上</a>
-						</label>
-						<br />
-						<label>酒店级别
-							<a class="btn active" href="">不限</a>
-							<a class="btn" href="">经济型</a>
-							<a class="btn" href="">二星级</a>
-							<a class="btn" href="">三星级</a>
-							<a class="btn" href="">四星级及以上</a>
-						</label>
+			<div style="width:1150px;margin:20px auto 0 auto;">
+				<div class="list-screen">
+					<div class="screen-top" style="position:relative;">
+						<span>目的地<input id="txtadress" type="text"/></span>
+						<span>入住<input type="text" class="mh_date" readonly="true" /></span>
+						<span>退房<input type="text" class="mh_date" readonly="true" /></span>
+						<span>酒店名称<input type="text" class="ju-name" /></span>
+						<a href="#" id="submit-btn"/>搜索</a>
 					</div>
-					<div role="tabpanel" class="tab-pane fade" id="beijing">
-						<label id="label">酒店位置
-							<a class="btn active" href="">全北京</a>
-							<a class="btn" href="">朝阳</a>
-							<a class="btn" href="">东城</a>
-							<a class="btn" href="">海淀</a>
-						</label>
-						<br />
-						<label>价格区间
-							<a class="btn active" href="">不限</a>
-							<a class="btn" href="">200以下</a>
-							<a class="btn" href="">200-500</a>
-							<a class="btn" href="">500-1000</a>
-							<a class="btn" href="">1000以上</a>
-						</label>
-						<br />
-						<label>酒店级别
-							<a class="btn active" href="">不限</a>
-							<a class="btn" href="">经济型</a>
-							<a class="btn" href="">二星级</a>
-							<a class="btn" href="">三星级</a>
-							<a class="btn" href="">四星级及以上</a>
-						</label>
+
+					<div style="padding:10px 30px 10px 10px;">
+						<div class="screen-address">
+							<div class="list-tab">
+								<div id="demo1" class="clearfix">
+									<div class="jiud-name">酒店位置</div>
+									<div class="ui-tab-container">
+										<ul class="clearfix ui-tab-list">
+											<li class="ui-tab-active">行政区</li>
+<!--											<li>交通枢纽</li>-->
+<!--											<li>地铁周边</li>-->
+<!--											<li>行政区</li>-->
+										</ul>
+										<div class="ui-tab-bd">
+
+											<div id=“area” class="ui-tab-content clearfix">
+												<?php
+													foreach ($areas as $area) {
+												?>
+														<p><label><input name="tabrad1" type="radio"
+																		 value=""/><?php echo
+																$area['area'];?></label></p>
+												<?php
+													}
+												?>
+											</div>
+
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="screen-term">
+							<div class="selectNumberScreen">
+								<div id="selectList" class="screenBox screenBackground">
+									<dl class="listIndex">
+										<dt>酒店价格</dt>
+										<dd>
+											<label><a href="javascript:;" attrval="不限">不限</a></label>
+											<label><input name="radio2" type="radio" value="" /><a href="javascript:;" values2="99" values1="1" attrval="1-99">100元以下</a></label>
+											<label><input name="radio2" type="radio" value="" /><a href="javascript:;" values2="300" values1="100" attrval="100-300">100-300元 </a></label>
+											<label><input name="radio2" type="radio" value="" /><a href="javascript:;" values2="600" values1="300" attrval="300-600">300-600元</a></label>
+											<label><input name="radio2" type="radio" value="" /><a href="javascript:;" values2="1500" values1="600" attrval="5000以上">600-1500元</a></label>
+										</dd>
+									</dl>
+									<dl class="listIndex">
+										<dt>酒店星级</dt>
+										<dd>
+											<label><a href="javascript:;" attrval="不限">不限</a> </label>
+											<label><input name="checkbox2" type="checkbox" value="" /><a href="javascript:;"> 五星/豪华</a></label>
+											<label><input name="checkbox2" type="checkbox" value="" /><a href="javascript:;">四星/高档</a></label>
+											<label><input name="checkbox2" type="checkbox" value="" /><a href="javascript:;">三星/舒适</a></label>
+										</dd>
+									</dl>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div role="tabpanel" class="tab-pane fade" id="nanjing">
-						<label id="label">酒店位置
-							<a class="btn active" href="">全南京</a>
-							<a class="btn" href="">玄武</a>
-							<a class="btn" href="">鼓楼</a>
-							<a class="btn" href="">秦淮</a>
-						</label>
-						<br />
-						<label>价格区间
-							<a class="btn active" href="">不限</a>
-							<a class="btn" href="">200以下</a>
-							<a class="btn" href="">200-500</a>
-							<a class="btn" href="">500-1000</a>
-							<a class="btn" href="">1000以上</a>
-						</label>
-						<br />
-						<label>酒店级别
-							<a class="btn active" href="">不限</a>
-							<a class="btn" href="">经济型</a>
-							<a class="btn" href="">二星级</a>
-							<a class="btn" href="">三星级</a>
-							<a class="btn" href="">四星级及以上</a>
-						</label>
+
+					<div class="hasBeenSelected clearfix">
+						<span id="time-num"><font><?php echo count($hotels);?></font>家酒店</span>
+						<div style="float:right;" class="eliminateCriteria">【清空全部】</div>
+						<dl>
+							<dt>已选条件：</dt>
+							<dd style="display:none" class="clearDd">
+								<div class="clearList"></div>
+							</dd>
+						</dl>
 					</div>
-					<div role="tabpanel" class="tab-pane fade" id="shanghai">
-						<label id="label">酒店位置
-							<a class="btn active" href="">全上海</a>
-							<a class="btn" href="">浦东</a>
-							<a class="btn" href="">黄浦</a>
-							<a class="btn" href="">徐汇</a>
-						</label>
-						<br />
-						<label>价格区间
-							<a class="btn active" href="">不限</a>
-							<a class="btn" href="">200以下</a>
-							<a class="btn" href="">200-500</a>
-							<a class="btn" href="">500-1000</a>
-							<a class="btn" href="">1000以上</a>
-						</label>
-						<br />
-						<label>酒店级别
-							<a class="btn active" href="">不限</a>
-							<a class="btn" href="">经济型</a>
-							<a class="btn" href="">二星级</a>
-							<a class="btn" href="">三星级</a>
-							<a class="btn" href="">四星级及以上</a>
-						</label>
-					</div>
+
+					<script type="text/javascript" src="/public/js/shaixuan.js"></script>
+
 				</div>
+
 			</div>
-			<div class="col-md-1"></div>
 		</div>
 
 		<hr />
-		<div class="col-md-1"></div>
-		<div class="col-md-10 house-info">
-			<div class="row">
-			<?php
-				foreach ($hotel as $key=>$value){
-			?>
-				<div class="col-md-3">
-					<div class="thumbnail">
-						<img src="/public/i/hotel/<?php echo ++$key?>.jpg" alt="...">
-						<div class="caption">
-							<h4><?php echo $value['title'] ?></h4>
-							<p><?php echo $value['content'] ?></p>
-							<p><a href="?c=hotel&m=hotel_info&hotel_id=<?php echo $value['_id'] ?>" class="btn btn-primary" role="button">查看</a> <a href="?c=index&m=reserve&id=<?php echo $value['_id']; ?>" class="btn btn-default" role="button">预订</a>
-							</p>
-						</div>
-					</div>
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+			<h3 class="panel-title"><?php echo count($hotels);?>个酒店满足排序</h3>
+		  </div>
+		  <div class="panel-body">
+			默认排序
+		  </div>
+		</div>
+<!--		<div class="col-md-1"></div>-->
+		<div class="col-md-11 house-info">
+			<div class="row house-list">
+				<div class="col-md-2 picture">
+					<img class="img-thumbnail" width="100%" height="100%" src="/public/i/1.jpg" alt="..." >
 				</div>
-			<?php
-				}
-			?>
+				<div class="col-md-6">
+					<table class="table table-hover">
+						<tr><th><a style="text-decoration: none" href="#" id="torentinfo">xxxx</a></th></tr>
+						<tr><td>位置</td></tr>
+						<tr><td>Data</td></tr>
+					</table>
+				</div>
+				<div class="col-md-2">
+					<table class="table table-hover">
+						<tr><th>xxxx</th></tr>
+						<tr>xxx</td></tr>
+					</table>
+				</div>
+				<div class="col-md-2">
+					<table class="table table-hover">
+						<tr><th>xxxx</th></tr>
+						<tr>xxx</td></tr>
+					</table>
+				</div>
 			</div>
 
-		</div>
-		<div class="col-md-1"></div>
 
-		<div class="col-md-1"></div>
-		<div class="col-md-8 col-md-offset-1">
-			<nav>
-			  <ul class="pagination">
-			    <li><a href="#">&laquo;</a></li>
-			    <li><a href="#">1</a></li>
-			    <li><a href="#">&raquo;</a></li>
-			  </ul>
-			</nav>
+<!--		<div class="col-md-1"></div>-->
+		<div class="row">
+<!--			<div class="col-md-1"></div>-->
+			<div class="col-md-8">
+				<nav>
+				  <ul class="pagination">
+					<li><a href="#">&laquo;</a></li>
+					<li><a href="#">1</a></li>
+					<li><a href="#">&raquo;</a></li>
+				  </ul>
+				</nav>
+			</div>
+			<div class="col-md-4"></div>
 		</div>
-		<div class="col-md-2"></div>
 	</div>
 
- 	<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-    <script src="/public/js/bootstrap.min.js"></script>
-  <script type="text/javascript">
+<!-- 	<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>-->
+
+    <script type="text/javascript">
 	  $(function () {
-		  $('.carousel').carousel();
 		  $("#login").click(function () {
 			  window.location.href="?c=auth&m=login";
 		  })

@@ -5,10 +5,14 @@ class Index extends CI_Controller{
     public function __construct(){
         parent::__construct();
         $this->load->model("mhotel");
+        $this->load->model("marea");
     }
 
     public function index(){
-        $data['hotel']=$this->mhotel->get_hotel_info();
+        $cityID=$this->get_current_cityID();
+        $data['hotels']=$this->mhotel->get_hotel_info($cityID);
+        $areas=$this->get_citys();
+        $data['areas']=$areas;
         $this->load->view("index/index",$data);
     }
 
@@ -62,6 +66,7 @@ class Index extends CI_Controller{
             "type"=>1,
         );
         $this->muser->reserve($data);
+        exit();
         echo "<script>location.href='".$_SERVER["HTTP_REFERER"]."';</script>";
     }
 
@@ -70,6 +75,87 @@ class Index extends CI_Controller{
         $hid=$_REQUEST['hid'];
         $this->muser->del_reservation($uid,$hid);
         echo "<script>location.href='".$_SERVER["HTTP_REFERER"]."';</script>";
+    }
+
+
+    function getIPLoc($queryIP){
+        $url = 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip='.$queryIP;
+        $ch = curl_init($url);
+        curl_setopt($ch,CURLOPT_ENCODING ,'utf8');
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true) ; // 获取数据返回
+        $location = curl_exec($ch);
+        $location = json_decode($location);
+//        print_r($location);
+        curl_close($ch);
+
+        $loc = "";
+        if($location===FALSE) return "";
+        if (empty($location->desc)) {
+//            $loc = $location->province.$location->city.$location->district.$location->isp;
+            $loc=array($location->province,$location->city);
+        }else{
+            $loc = $location->desc;
+        }
+        return $loc;
+    }
+
+    function getRealIp(){
+        $ip=false;
+        if(!empty($_SERVER["HTTP_CLIENT_IP"])){
+            $ip = $_SERVER["HTTP_CLIENT_IP"];
+        }
+        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ips = explode (", ", $_SERVER['HTTP_X_FORWARDED_FOR']);
+            if ($ip) { array_unshift($ips, $ip); $ip = FALSE; }
+            for ($i = 0; $i < count($ips); $i++) {
+                if (!eregi ("^(10│172.16│192.168).", $ips[$i])) {
+                    $ip = $ips[$i];
+                    break;
+                }
+            }
+        }
+        return ($ip ? $ip : $_SERVER['REMOTE_ADDR']);
+    }
+
+    public function getPlace(){
+        $ip=$this->getRealIp();
+        $place=$this->getIPLoc($ip);
+        return $place[1];
+    }
+
+    public function get_current_cityID(){
+        $citys=$this->marea->get_citys();
+        $city=$this->getPlace();
+        $cityID=320300;
+        foreach ($citys as $key=>$value){
+            if(mb_strpos($value['city'],$city)!==false){
+                $cityID=$value['cityID'];
+            }
+        }
+        return $cityID;
+    }
+
+    public function get_citys(){
+        $citys=$this->marea->get_citys();
+//        var_dump($citys);
+        $city=$this->getPlace();
+        $areas=array();
+        foreach ($citys as $key=>$value){
+            if(mb_strpos($value['city'],$city)!==false){
+                $areas=$this->marea->get_areas_by_cid($value['cityID']);
+            }
+        }
+//        $area_array=array();
+//        foreach ($areas as $area){
+//            $area_array[]=$area['area'];
+//        }
+//        var_dump($area_array);
+//        return $area_array;
+        if(empty($areas)){
+            $areas=$this->marea->get_areas_by_cid(320300);
+        }
+        return $areas;
     }
 
 }
