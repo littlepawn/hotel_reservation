@@ -8,39 +8,51 @@
     <link href="/public/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
     <style type="text/css">
+    body {
+      padding-top: 50px;
+    }
 
-    	body {
-    		padding-top: 50px;
-    	}
-    	#name{
-    		margin-left: 120px;
-    	}
-    	#info{
-    		margin: 7% auto;
+    #name{
+    	margin-left: 120px;
+    }
+
+    #info{
+    	margin: 7% auto;
 			margin-bottom: 0%;
-    	}
+    }
+
 		#head-info{
 			padding: 20px;
 			border: 1px solid #66ccff;
 		}
+
 		#map{
 			margin-top: 7%;
 		}
+
 		#hotel-list{
-			padding-top: 5%;
+			padding-top: 10px;
+      padding-bottom: 10px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
 		}
-    	.house-info{
+
+    .house-info{
 			margin: 20px auto;
 		}
-        #panel{
-            /*position: absolute;*/
-            background-color: white;
-            max-height: 90%;
-            overflow-y: auto;
-            top: 10px;
-            right: 10px;
-            width: 280px;
-        }
+
+    .room-img{
+      max-width: 120%;
+    }
+
+    #panel{
+      /*position: absolute;*/
+      background-color: white;
+      max-height: 90%;
+      overflow-y: auto;
+      top: 10px;
+      right: 10px;
+      width: 280px;
+    }
     </style>
   </head>
   <body>
@@ -126,22 +138,29 @@
 					<?php
 						foreach($apartments as $apartment){
 					?>
-					<div class="row" id="hotel-list">
-						<div class="col-md-2">
-							<img class="img-thumbnail" src="/public/i/hotel/1.jpg" alt="..." >
-							<label class="control-label col-md-offset-3"><?php echo $apartment['type'];?></label>
-						</div>
-						<div class="col-md-8">
-							<table class="table table-hover">
-								<tr><td>面积 10平方</td></tr>
-								<tr><td><?php echo $apartment['desp'];?></td></tr>
-								<tr><td><?php echo $apartment['price'];?>元/间</td></tr>
-							</table>
-						</div>
-						<div class="col-md-2">
-							<a class="btn btn-primary btn-block" href="javascript:;" onclick="reserve()">预定</a>
-						</div>
-					</div>
+          <div class="row" id="hotel-list">
+            <div class="col-md-2">
+              <img class="img-thumbnail room-img" src="/public/i/hotel/1.jpg" alt="..." >
+            </div>
+            <div class="col-md-8">
+              <div>
+                <div>
+                  <h2><?php $apartment['title']; ?></h2>
+                </div>
+                <div>
+                  <?php echo $apartment['type'];?> | <?php echo $apartment['desp'];?>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div>
+                <h3>¥ <?php echo $apartment['price'];?>起</h3>
+              </div>
+              <div>
+                <a class="btn btn-danger btn-block" href="javascript:;" onclick="reserve(<?php echo $hotel['_id']?>,<?php echo $apartment['_id'];?>)">预定</a>
+              </div>
+            </div>
+          </div>
 					<?php } ?>
 				</div>
 			</div>
@@ -246,4 +265,3 @@
     </script>
   </body>
 </html>
-
