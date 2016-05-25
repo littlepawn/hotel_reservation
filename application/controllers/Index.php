@@ -123,9 +123,7 @@ class Index extends CI_Controller{
         );
         $this->load->view("user/userinfo",$data);
     }
-    
-    
-    //test
+
     public function reservation(){
         $user=$this->session->userdata("user");
         if(empty($user))
@@ -138,22 +136,23 @@ class Index extends CI_Controller{
         $this->load->model("mhotel");
         $hotel_array=array();
         foreach($reservation as $value){
-            $hotel_array[]=$this->mhotel->get_hotel_by_id($value['hotel_id']);
+            $hotel_array[]=$this->mhotel->get_hotel_info_by_id($value['hotel_id']);
         }
         $data['hotel']=$hotel_array;
         $this->load->view("hotel/reservation",$data);
     }
 
     public function reserve(){
-        $id=$_REQUEST['id'];
+        $hid=$_REQUEST['hid'];
+        $aid=$_REQUEST['aid'];
         $user=$this->session->userdata("user");
         $data=array(
             "user_id"=>$user['id'],
-            "hotel_id"=>$id,
-            "type"=>1,
+            "hotel_id"=>$hid,
+            "apartment_id"=>$aid,
         );
         $this->muser->reserve($data);
-        exit();
+        echo "<script>alert('预订成功');</script>";
         echo "<script>location.href='".$_SERVER["HTTP_REFERER"]."';</script>";
     }
 

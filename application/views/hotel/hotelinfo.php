@@ -133,13 +133,14 @@
 						</div>
 						<div class="col-md-8">
 							<table class="table table-hover">
-								<tr><td>面积 10平方</td></tr>
+								<tr><td><?php echo $apartment['title'];?></td></tr>
 								<tr><td><?php echo $apartment['desp'];?></td></tr>
 								<tr><td><?php echo $apartment['price'];?>元/间</td></tr>
 							</table>
 						</div>
 						<div class="col-md-2">
-							<a class="btn btn-primary btn-block" href="javascript:;" onclick="reserve()">预定</a>
+							<a class="btn btn-primary btn-block" href="javascript:;" onclick="reserve(<?php echo
+							$hotel['_id']?>,<?php echo $apartment['_id'];?>)">预定</a>
 						</div>
 					</div>
 					<?php } ?>
@@ -211,10 +212,10 @@
                 placeSearch.search("<?php echo $hotel['title'];?>");
             });
 		}
-		function reserve(){
+		function reserve(hid,aid){
 			var flag="<?php echo isset($_SESSION['user'])?true:false;?>";
 			if(flag){
-				alert("预定成功");
+				window.location.href="?c=index&m=reserve&hid="+hid+"&aid="+aid;
 			}else{
 				alert("登陆后才能预定");
 			}
