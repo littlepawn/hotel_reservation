@@ -269,7 +269,7 @@
 				if(areaID.val() != undefined){
 					param1=areaID.val();
 				}
-
+				
 				var param2=0;
 				var price=$('input[name="radio2"]:checked');
 				if(price.val() != undefined){
