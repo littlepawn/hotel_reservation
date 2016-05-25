@@ -13,7 +13,91 @@ class Index extends CI_Controller{
         $data['hotels']=$this->mhotel->get_hotel_info($cityID);
         $areas=$this->get_citys();
         $data['areas']=$areas;
+        $data['cityName']=$this->getPlace();
         $this->load->view("index/index",$data);
+    }
+
+    public function filter(){
+//        var_dump($_REQUEST);
+        $city=htmlentities(trim($_REQUEST['area']));
+        $hotelname=htmlentities(trim($_REQUEST['hotelname']));
+        $areaID=intval($_REQUEST['areaID']);
+        $price=intval($_REQUEST['price']);
+        $level=intval($_REQUEST['level']);
+        $param=array(
+            "area"=>$city,
+            "hotelname"=>$hotelname,
+            "areaID"=>$areaID,
+            "price"=>$price,
+            "level"=>$level,
+        );
+        if(!empty($city)) {
+            $cityID = $this->get_cityID_by_name($city);
+            if (empty($cityID)) {
+                $param['type']=1;
+                $this->index_filter($param);
+            }else{
+                $param['type']=2;
+                $param['cityID']=$cityID;
+                $this->index_filter($param);
+            }
+        }else{
+            $areas=$this->get_citys();
+            if(!empty($areaID)){
+                $param['type']=3;
+                $hotels=$this->get_hotels_by_areaID($areaID,$hotelname,$price,$level);
+                $param['hotels']=$hotels;
+                $param['areas']=$areas;
+                $this->index_filter($param);
+            }else{
+                $param['type']=4;
+                $cityID=$this->get_current_cityID();
+                $hotels=$this->get_hotels_by_cityID($cityID,$hotelname,$price,$level);
+                $param['hotels']=$hotels;
+                $param['areas']=$areas;
+                $this->index_filter($param);
+            }
+        }
+    }
+
+    public function index_filter($param){
+        if($param['type']==1) {
+            $data['areas'] = array();
+            $data['hotels']=array();
+            $data['flag']=true;
+        }elseif($param['type']==2){
+            $data['hotels']=$this->mhotel->get_hotel_info($param['cityID']);
+            $areas=$this->get_areas_by_cityID($param['cityID']);
+            $data['flag']=true;
+            foreach($areas as $area){
+                if($area['areaID']==$param['areaID']){
+                    $hotels=$this->get_hotels_by_areaID($param['areaID'],$param['hotelname'],$param['price'],
+                        $param['level']);
+                    $data['hotels']=$hotels;
+                    unset($data['flag']);
+                    break;
+                }
+            }
+            $data['areas']=$areas;
+        }elseif($param['type']==3||$param['type']==4){
+            $data['hotels']=$param['hotels'];
+            $data['areas']=$param['areas'];
+            $data['cityName']=$this->getPlace();
+        }else{
+            echo "error";
+            exit;
+        }
+        $this->load->view("index/index",$data);
+    }
+
+    public function get_hotels_by_areaID($areaID,$hotelname,$price,$level){
+        $hotels=$this->mhotel->get_hotels_by_param($areaID,$hotelname,$price,$level,1);
+        return $hotels;
+    }
+
+    public function get_hotels_by_cityID($cityID,$hotelname,$price,$level){
+        $hotels=$this->mhotel->get_hotels_by_param($cityID,$hotelname,$price,$level,2);
+        return $hotels;
     }
 
     public function test(){
@@ -134,6 +218,22 @@ class Index extends CI_Controller{
             }
         }
         return $cityID;
+    }
+
+    public function get_cityID_by_name($name){
+        $citys=$this->marea->get_citys();
+        $cityID=0;
+        foreach ($citys as $key=>$value){
+            if(mb_strpos($value['city'],$name)!==false){
+                $cityID=$value['cityID'];
+            }
+        }
+        return $cityID;
+    }
+
+    public function get_areas_by_cityID($cityID){
+        $areas=$this->marea->get_areas_by_cid($cityID);
+        return $areas;
     }
 
     public function get_citys(){

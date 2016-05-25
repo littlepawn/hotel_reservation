@@ -104,16 +104,21 @@
 	</nav>
 
 	<div class="container">
+		<br>
+		<div class="row">
+			<p>当前城市:<?php if(isset($_GET['area'])&&!empty($_GET['area'])){echo $_GET['area'];}else{echo $cityName;};
+				?></p>
+		</div>
 
 		<!-- 筛选 -->
 		<div class="row">
 			<div style="width:1150px;margin:20px auto 0 auto;">
 				<div class="list-screen">
 					<div class="screen-top" style="position:relative;">
-						<span>目的地<input id="txtadress" type="text"/></span>
-						<span>入住<input type="text" class="mh_date" readonly="true" /></span>
-						<span>退房<input type="text" class="mh_date" readonly="true" /></span>
-						<span>酒店名称<input id="hotelname" type="text" class="ju-name" /></span>
+						<span>目的地<input id="txtadress" type="text" value="<?php echo isset($_GET['area'])?$_GET['area']:'';?>"/></span>
+						<span>入住<input type="text" class="mh_date" id="start" readonly="true" value="<?php echo isset($_GET['start'])?$_GET['start']:'';?>"/></span>
+						<span>退房<input type="text" class="mh_date" id="end" readonly="true" value="<?php echo isset($_GET['end'])?$_GET['end']:'';?>"/></span>
+						<span>酒店名称<input id="hotelname" type="text" class="ju-name" value="<?php echo isset($_GET['hotelname'])?$_GET['hotelname']:'';?>"/></span>
 						<a href="javascript:;" id="submit-btn"/>搜索</a>
 					</div>
 
@@ -132,12 +137,14 @@
 										<div class="ui-tab-bd">
 
 											<div id=“area” class="ui-tab-content clearfix">
-												<p><label><a href="javascript:;" attrval="不限" id="emptyTabrad">不限</a></label></p>
+												<p><label><a href="javascript:;" attrval="不限"
+															 id="emptyTabrad"><?php echo empty($areas)?'未搜索到相关位置':'不限';
+															?></a></label></p>
 												<?php
 													foreach ($areas as $area) {
 												?>
 														<p><label><input name="tabrad" type="radio"
-																		 value="<?php echo $area['areaID'];?>"/><?php
+																		 value="<?php echo $area['areaID'];?>" <?php if(isset($_GET['areaID'])&&$_GET['areaID']==$area['areaID']&&!isset($flag)) echo 'checked' ?>/><?php
 																echo
 																$area['area'];?></label></p>
 												<?php
@@ -159,19 +166,26 @@
 										<dt>酒店价格</dt>
 										<dd>
 											<label><a href="javascript:;" attrval="不限">不限</a></label>
-											<label><input name="radio2" type="radio" value="1" /><a href="javascript:;" values2="99" values1="1" attrval="1-99">100元以下</a></label>
-											<label><input name="radio2" type="radio" value="2" /><a href="javascript:;" values2="300" values1="100" attrval="100-300">100-300元 </a></label>
-											<label><input name="radio2" type="radio" value="3" /><a href="javascript:;" values2="600" values1="300" attrval="300-600">300-600元</a></label>
-											<label><input name="radio2" type="radio" value="4" /><a href="javascript:;" values2="1500" values1="600" attrval="5000以上">600-1500元</a></label>
+											<label><input name="radio2" type="radio" value="1" <?php if(isset($_GET['area'])&&$_GET['price'] == 1&&!isset($flag)) echo 'checked' ?>/><a href="javascript:;" values2="99" values1="1" attrval="1-99">100元以下</a></label>
+											<label><input name="radio2" type="radio" value="2" <?php if(isset($_GET['area'])&&$_GET['price'] == 2&&!isset($flag)) echo 'checked' ?>/><a href="javascript:;" values2="300" values1="100" attrval="100-300">100-300元
+												</a></label>
+											<label><input name="radio2" type="radio" value="3" <?php if(isset($_GET['area'])&&$_GET['price'] == 3&&!isset($flag)) echo 'checked' ?>/><a href="javascript:;" values2="600" values1="300"
+																																														attrval="300-600">300-600元</a></label>
+											<label><input name="radio2" type="radio" value="4" <?php if(isset($_GET['area'])&&$_GET['price'] == 4&&!isset($flag)) echo 'checked' ?>/><a href="javascript:;" values2="1500" values1="600"
+																																														attrval="5000以上">600-1500元</a></label>
+											<label><input name="radio2" type="radio" value="4" <?php if(isset($_GET['area'])&&$_GET['price'] == 5&&!isset($flag)) echo 'checked' ?>/><a href="javascript:;" values2="1500" values1="600"
+																																														attrval="5000以上">1500元以上</a></label>
 										</dd>
 									</dl>
 									<dl class="listIndex">
 										<dt>酒店星级</dt>
 										<dd>
 											<label><a href="javascript:;" attrval="不限">不限</a> </label>
-											<label><input name="radio3" type="radio" value="5" /><a href="javascript:;"> 五星/豪华</a></label>
-											<label><input name="radio3" type="radio" value="4" /><a href="javascript:;">四星/高档</a></label>
-											<label><input name="radio3" type="radio" value="3" /><a href="javascript:;">三星/舒适</a></label>
+											<label><input name="radio3" type="radio" value="2" <?php if(isset($_GET['area'])&&$_GET['level']==2&&!isset($flag)) echo 'checked' ?>/><a
+														href="javascript:;">经济型</a></label>
+											<label><input name="radio3" type="radio" value="3" <?php if(isset($_GET['area'])&&$_GET['level']==3&&!isset($flag)) echo 'checked' ?>/><a href="javascript:;">三星/舒适</a></label>
+											<label><input name="radio3" type="radio" value="4" <?php if(isset($_GET['area'])&&$_GET['level']==4&&!isset($flag)) echo 'checked' ?>/><a href="javascript:;">四星/高档</a></label>
+											<label><input name="radio3" type="radio" value="5" <?php if(isset($_GET['area'])&&$_GET['level']==5&&!isset($flag)) echo 'checked' ?>/><a href="javascript:;"> 五星/豪华</a></label>
 										</dd>
 									</dl>
 								</div>
@@ -182,15 +196,15 @@
 					<div class="hasBeenSelected clearfix">
 						<span id="time-num"><font><?php echo count($hotels);?></font>家酒店</span>
 						<div style="float:right;" class="eliminateCriteria">【清空全部】</div>
-						<dl>
-							<dt>已选条件：</dt>
-							<dd style="display:none" class="clearDd">
-								<div class="clearList"></div>
-							</dd>
-						</dl>
+<!--						<dl>-->
+<!--							<dt>已选条件：</dt>-->
+<!--							<dd style="display:none" class="clearDd">-->
+<!--								<div class="clearList"></div>-->
+<!--							</dd>-->
+<!--						</dl>-->
 					</div>
 
-					<script type="text/javascript" src="/public/js/shaixuan.js"></script>
+<!--					<script type="text/javascript" src="/public/js/shaixuan.js"></script>-->
 
 				</div>
 
@@ -211,6 +225,9 @@
 			<div class="row house-list">
 
 				<?php
+					if(empty($hotels)){
+						echo "<p>无该地址酒店信息</p>";
+					}
 					foreach ($hotels as $key => $hotel){
 				?>
 				<div class="col-md-2 picture">
@@ -261,8 +278,10 @@
 	<script type="text/javascript">
 		$(function () {
 			$("#submit-btn").click(function () {
-				var area=$("#txtadress");
-				var hotelname=$("#hotelname");
+				var area=$("#txtadress").val();
+				var hotelname=$("#hotelname").val();
+				var start=$("#start").val();
+				var end=$("#end").val();
 
 				var param1=0;
 				var areaID=$('input[name="tabrad"]:checked');
@@ -281,15 +300,22 @@
 					param3=level.val();
 				}
 				console.log(param1+" "+param2+" "+param3);
-//				window.location.href="?c=index&m=index&area="+
+				window.location.href="?c=index&m=filter&area="+area+"&hotelname="+hotelname+"&areaID="+param1+"&price" +
+						"="+param2+"&level="+param3+"&start="+start+"&end="+end;
 			})
 		})
 	</script>
     <script type="text/javascript">
+
 	  $(function () {
+		  $(".eliminateCriteria").click(function () {
+			  $('input[name="tabrad"]').removeAttr("checked");
+			  $('input[name="radio2"]').removeAttr("checked");
+			  $('input[name="radio3"]').removeAttr("checked");
+		  });
 		  $("#emptyTabrad").click(function () {
 			  $('input[name="tabrad"]').removeAttr("checked");
-		  })
+		  });
 		  $("#login").click(function () {
 			  window.location.href="?c=auth&m=login";
 		  })
