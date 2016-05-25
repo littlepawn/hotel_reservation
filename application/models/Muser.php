@@ -14,6 +14,12 @@ class Muser extends CI_Model{
         return $query->result_array();
     }
 
+    public function get_user_by_id($id){
+        $this->db->where("_id",$id);
+        $query=$this->db->get($this->_user_db);
+        return $query->row_array();
+    }
+
     public function get_reservation($id){
         $this->db->where("user_id",$id);
         $query=$this->db->get("reservation");

@@ -5,6 +5,8 @@ class Mhotel extends CI_Model{
         parent::__construct();
         $this->load->database("default");
         $this->_hotel_db="hotel";
+        $this->_apartment_db="apartment";
+        $this->_comment_db="comment";
     }
 
     public function get_hotel_info($cityID){
@@ -13,10 +15,28 @@ class Mhotel extends CI_Model{
         return $query->result_array();
     }
 
-    public function get_hotel_by_id($id){
+    public function get_hotel_info_by_id($id){
         $this->db->where("_id",$id);
         $query=$this->db->get($this->_hotel_db);
         return $query->row_array();
+    }
+
+    public function get_apartments_by_hid($hid){
+        $this->db->where("hotel_id",$hid);
+        $this->db->order_by("type","asc");
+        $query=$this->db->get($this->_apartment_db);
+        return $query->result_array();
+    }
+
+    public function get_comments_by_hid($hid){
+        $this->db->where("hotel_id",$hid);
+        $this->db->order_by("create_time","desc");
+        $query=$this->db->get($this->_comment_db);
+        return $query->result_array();
+    }
+
+    public function add_comment($data){
+        $this->db->insert($this->_comment_db,$data);
     }
 
     public function get_hotels_by_param($id,$hotelname,$price,$level,$category){
@@ -36,16 +56,20 @@ class Mhotel extends CI_Model{
                 $this->db->where("low_price<=", 300);
             } elseif ($price == 3) {
                 $this->db->where("low_price>=", 300);
-                $this->db->where("low_price<=", 600);
-            } elseif ($price == 4) {
-                $this->db->where("low_price>=", 600);
-                $this->db->where("low_price<=", 1500);
+                $this->db->where("low_price<=", 1000);
             } else {
-                $this->db->where("low_price>", 1500);
+                $this->db->where("low_price>", 1000);
             }
         }
         $query=$this->db->get($this->_hotel_db);
         return $query->result_array();
+    }
+
+    public function count_hotel($cityID){
+        $this->db->where('cityID', $cityID);
+        $this->db->from($this->_hotel_db);
+        $total = $this->db->count_all_results();
+        return $total;
     }
 
 }

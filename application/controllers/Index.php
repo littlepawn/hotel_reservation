@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Index extends CI_Controller{
+    private static $limit=1;
     public function __construct(){
         parent::__construct();
         $this->load->model("mhotel");
@@ -13,6 +14,8 @@ class Index extends CI_Controller{
         $data['hotels']=$this->mhotel->get_hotel_info($cityID);
         $areas=$this->get_citys();
         $data['areas']=$areas;
+//        $count=$this->mhotel->count_hotel($cityID);
+//        $data['pages']=($count-1)/SELF::$limit+1;
         $data['cityName']=$this->getPlace();
         $this->load->view("index/index",$data);
     }

@@ -87,29 +87,31 @@
 				<h1>酒店预定</h1>
 				<hr />
 				<div class="col-md-4">
-					<img class="img-thumbnail" src="/public/i/hotel/3.jpg" alt="..." >
+					<img class="img-thumbnail" src="<?php echo $hotel['image']?>" alt="..." >
 				</div>
 				<div class="col-md-8">
 					<div class="row">
 						<form class="form-horizontal" role="form">
 							<div class="form-group">
 							   <label class="col-md-3 control-label">酒店名称</label>
-							   <label class="col-md-9 control-label" id="rent" style="text-align: left;">如家快捷酒店</label>
+							   <label class="col-md-9 control-label" id="rent" style="text-align: left;"><?php echo $hotel['title']?></label>
 							</div>
 
 							<div class="form-group">
 							   <label class="col-md-3 control-label">酒店简介</label>
-							   <label class="col-md-9 control-label" id="allocation" style="text-align: left;">酒店预定</label>
+							   <label class="col-md-9 control-label" id="allocation" style="text-align: left;"><?php
+								   echo $hotel['content']?></label>
 							</div>
 
 							<div class="form-group">
 							   <label class="col-md-3 control-label">酒店地址</label>
-							   <label class="col-md-9 control-label" id="" style="text-align: left;">江苏省徐州市铜山区上海路</label>
+							   <label class="col-md-9 control-label" id="" style="text-align: left;"><?php echo
+								   $hotel['address']?></label>
 							</div>
 
 							<div class="form-group">
-							   <label class="col-md-3 control-label">住户评价</label>
-							   <label class="col-md-3 control-label" id="username" style="text-align: left;color: red">4.5分</label>
+							   <label class="col-md-3 control-label">用户评论</label>
+							   <label class="col-md-3 control-label" id="username" style="text-align: left;"><?php echo count($comments);?> 条</label>
 							</div>
 						</form>
 					</div>
@@ -119,46 +121,65 @@
 			<div class="row">
 				<div class="house-info">
 					<ul class="nav nav-tabs" role="tablist" id="mytab">
-					  <li role="presentation" class="active"><a href="">酒店预定</a></li>
+					  <li role="presentation" class="active"><a href="">房间信息</a></li>
 					</ul>
-					
+					<?php
+						foreach($apartments as $apartment){
+					?>
 					<div class="row" id="hotel-list">
 						<div class="col-md-2">
 							<img class="img-thumbnail" src="/public/i/hotel/1.jpg" alt="..." >
-							<label class="control-label col-md-offset-3">大床房</label>
+							<label class="control-label col-md-offset-3"><?php echo $apartment['type'];?></label>
 						</div>
 						<div class="col-md-8">
 							<table class="table table-hover">
 								<tr><td>面积 10平方</td></tr>
-								<tr><td>5层</td></tr>
-								<tr><td>独卫</td></tr>
-								<tr><td>200元/间</td></tr>
+								<tr><td><?php echo $apartment['desp'];?></td></tr>
+								<tr><td><?php echo $apartment['price'];?>元/间</td></tr>
 							</table>
 						</div>
 						<div class="col-md-2">
-							<a class="btn btn-primary btn-block" href="?c=index&m=reserve&id=1">预定</a>
+							<a class="btn btn-primary btn-block" href="javascript:;" onclick="reserve()">预定</a>
 						</div>
 					</div>
+					<?php } ?>
+				</div>
+			</div>
 
+			<div class="row">
+				<div class="house-info">
+					<ul class="nav nav-tabs" role="tablist" id="mytab">
+					  <li role="presentation" class="active"><a href="">评论列表</a></li>
+					</ul>
+					<?php
+						foreach($comments as $comment){
+					?>
 					<div class="row" id="hotel-list">
 						<div class="col-md-2">
-							<img class="img-thumbnail" src="/public/i/hotel/2.jpg" alt="..." >
-							<label class="control-label col-md-offset-3">单人房</label>
+							<img class="img-thumbnail" src="<?php echo $comment['avatar']?>" alt="..." >
 						</div>
 						<div class="col-md-8">
 							<table class="table table-hover">
-								<tr><td>面积 8平方</td></tr>
-								<tr><td>5层</td></tr>
-								<tr><td>独卫</td></tr>
-								<tr><td>150元/间</td></tr>
+								<tr><td><?php echo $comment['username']."---------".$comment['create_time'];
+										?></td></tr>
+								<tr><td><?php echo $comment['text'];?></td></tr>
 							</table>
 						</div>
-						<div class="col-md-2">
-							<a class="btn btn-primary btn-block">预定</a>
-						</div>
 					</div>
-
+					<?php } ?>
 				</div>
+			</div>
+
+			<div class="row">
+				<form action="?c=hotel&m=comment" method="post" role="form" onsubmit="return checkstatus();">
+				    <div class="form-group">
+					    <label for="name">发表评论</label>
+						<input type="hidden" value="<?php echo $hotel['_id'];?>" name="hid">
+					    <textarea class="form-control" rows="3" name="comment" id="comment"></textarea>
+						<br>
+					    <input class="btn btn-primary" type="submit" value="确认提交">
+				  </div>
+				</form>
 			</div>
 
 		</div>
@@ -187,8 +208,31 @@
                     panel: "panel"
                 });
                 //关键字查询
-                placeSearch.search("江苏师范大学");
+                placeSearch.search("<?php echo $hotel['title'];?>");
             });
+		}
+		function reserve(){
+			var flag="<?php echo isset($_SESSION['user'])?true:false;?>";
+			if(flag){
+				alert("预定成功");
+			}else{
+				alert("登陆后才能预定");
+			}
+		}
+
+		function checkstatus(){
+			var flag="<?php echo isset($_SESSION['user'])?true:false;?>";
+			if(!flag){
+				alert("登陆后才能评论");
+				return false;
+			}else{
+				var comment=$("#comment").val();
+				if(comment.length==0){
+					alert("评论不能为空");
+				return false;
+				}
+			}
+			return true;
 		}
 
         $(function () {
@@ -196,6 +240,7 @@
 			$("#login").click(function () {
 				  window.location.href="?c=auth&m=login";
 			  })
+
         })
 
     </script>

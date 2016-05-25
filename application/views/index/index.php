@@ -167,14 +167,9 @@
 										<dd>
 											<label><a href="javascript:;" attrval="不限">不限</a></label>
 											<label><input name="radio2" type="radio" value="1" <?php if(isset($_GET['area'])&&$_GET['price'] == 1&&!isset($flag)) echo 'checked' ?>/><a href="javascript:;" values2="99" values1="1" attrval="1-99">100元以下</a></label>
-											<label><input name="radio2" type="radio" value="2" <?php if(isset($_GET['area'])&&$_GET['price'] == 2&&!isset($flag)) echo 'checked' ?>/><a href="javascript:;" values2="300" values1="100" attrval="100-300">100-300元
-												</a></label>
-											<label><input name="radio2" type="radio" value="3" <?php if(isset($_GET['area'])&&$_GET['price'] == 3&&!isset($flag)) echo 'checked' ?>/><a href="javascript:;" values2="600" values1="300"
-																																														attrval="300-600">300-600元</a></label>
-											<label><input name="radio2" type="radio" value="4" <?php if(isset($_GET['area'])&&$_GET['price'] == 4&&!isset($flag)) echo 'checked' ?>/><a href="javascript:;" values2="1500" values1="600"
-																																														attrval="5000以上">600-1500元</a></label>
-											<label><input name="radio2" type="radio" value="4" <?php if(isset($_GET['area'])&&$_GET['price'] == 5&&!isset($flag)) echo 'checked' ?>/><a href="javascript:;" values2="1500" values1="600"
-																																														attrval="5000以上">1500元以上</a></label>
+											<label><input name="radio2" type="radio" value="2" <?php if(isset($_GET['area'])&&$_GET['price'] == 2&&!isset($flag)) echo 'checked' ?>/><a href="javascript:;" values2="300" values1="100" attrval="100-300">100-300元</a></label>
+											<label><input name="radio2" type="radio" value="3" <?php if(isset($_GET['area'])&&$_GET['price'] == 3&&!isset($flag)) echo 'checked' ?>/><a href="javascript:;" values2="600" values1="300" attrval="300-600">300-1000元</a></label>
+											<label><input name="radio2" type="radio" value="4" <?php if(isset($_GET['area'])&&$_GET['price'] == 4&&!isset($flag)) echo 'checked' ?>/><a href="javascript:;" values2="1500" values1="600" attrval="600-1500">1000元以上</a></label>
 										</dd>
 									</dl>
 									<dl class="listIndex">
@@ -236,7 +231,7 @@
 				</div>
 				<div class="col-md-6">
 					<table class="table table-hover">
-						<tr><th><a style="text-decoration: none" href="#"><?php echo $hotel['title'];?></a></th></tr>
+						<tr><th><a style="text-decoration: none" href="?c=hotel&m=hotel_info&hid=<?php echo $hotel['_id'];?>"><?php echo $hotel['title'];?></a></th></tr>
 						<tr><td><?php echo $hotel['content'];?></td></tr>
 						<tr><td><?php echo $hotel['address'];?></td></tr>
 					</table>
@@ -265,7 +260,7 @@
 				<nav>
 				  <ul class="pagination">
 					<li><a href="#">&laquo;</a></li>
-					<li><a href="#">1</a></li>
+					<li><a href="javascript:;">1</a></li>
 					<li><a href="#">&raquo;</a></li>
 				  </ul>
 				</nav>
