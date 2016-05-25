@@ -33,7 +33,7 @@
 		#hotel-list{
 			padding-top: 10px;
       padding-bottom: 10px;
-      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 		}
 
     .house-info{
@@ -44,6 +44,22 @@
       max-width: 120%;
     }
 
+    .room-price{
+      color: red;
+      font-size: 30px;
+    }
+
+    .small-text {
+      font-size: 12px;
+      color: red;
+      vertical-align: 7px;
+    }
+
+    .small-money{
+      font-size: 14px;
+      vertical-align: 12px;
+    }
+
     #panel{
       /*position: absolute;*/
       background-color: white;
@@ -52,6 +68,16 @@
       top: 10px;
       right: 10px;
       width: 280px;
+    }
+
+    .comment-time {
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 0.1rem;
+    }
+
+    .display-name{
+      font-size: 18px;
+      margin-bottom: 4px;
     }
     </style>
   </head>
@@ -145,7 +171,7 @@
             <div class="col-md-8">
               <div>
                 <div>
-                  <h2><?php $apartment['title']; ?></h2>
+                  <h3><strong><?php echo $apartment['title']; ?></strong></h3>
                 </div>
                 <div>
                   <?php echo $apartment['type'];?> | <?php echo $apartment['desp'];?>
@@ -154,10 +180,16 @@
             </div>
             <div class="col-md-2">
               <div>
-                <h3>¥ <?php echo $apartment['price'];?>起</h3>
-              </div>
-              <div>
-                <a class="btn btn-danger btn-block" href="javascript:;" onclick="reserve(<?php echo $hotel['_id']?>,<?php echo $apartment['_id'];?>)">预定</a>
+                <div>
+                  <div>
+                    <span class="small-money">¥</span>
+                    <span class="room-price"><?php echo $apartment['price'];?></span>
+                    <span class="small-text">起</span>
+                  </div>
+                </div>
+                <div>
+                  <a class="btn btn-danger btn-block" href="javascript:;" onclick="reserve(<?php echo $hotel['_id']?>,<?php echo $apartment['_id'];?>)">预定</a>
+                </div>
               </div>
             </div>
           </div>
@@ -178,12 +210,16 @@
 							<img class="img-thumbnail" src="<?php echo $comment['avatar']?>" alt="..." >
 						</div>
 						<div class="col-md-8">
-							<table class="table table-hover">
-								<tr><td><?php echo $comment['username']."---------".$comment['create_time'];
-										?></td></tr>
-								<tr><td><?php echo $comment['text'];?></td></tr>
-							</table>
+								<div class="display-name">
+                  <strong><?php echo $comment['username'] ?></strong>
+                </div>
+                <div>
+                  <?php echo $comment['text'];?>
+                </div>
 						</div>
+            <div class="col-md-2">
+              <span class="comment-time"><?php echo $comment['create_time'] ?></span>
+            </div>
 					</div>
 					<?php } ?>
 				</div>
@@ -194,7 +230,7 @@
 				    <div class="form-group">
 					    <label for="name">发表评论</label>
 						<input type="hidden" value="<?php echo $hotel['_id'];?>" name="hid">
-					    <textarea class="form-control" rows="3" name="comment" id="comment"></textarea>
+					    <textarea style="height: 120px;" class="form-control" rows="3" name="comment" id="comment"></textarea>
 						<br>
 					    <input class="btn btn-primary" type="submit" value="确认提交">
 				  </div>
