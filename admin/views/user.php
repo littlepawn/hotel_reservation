@@ -11,52 +11,42 @@
 <script type="text/javascript" src="public/lib/respond.min.js"></script>
 <script type="text/javascript" src="public/lib/PIE_IE678.js"></script>
 <![endif]-->
-<link href="public/css/H-ui.min.css" rel="stylesheet" type="text/css" />
-<link href="public/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
-<link href="public/lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--<link href="public/css/H-ui.min.css" rel="stylesheet" type="text/css" />-->
+<!--<link href="public/css/H-ui.admin.css" rel="stylesheet" type="text/css" />-->
+<link href="public/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<!--<link href="public/lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />-->
 <!--[if IE 6]>
 <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script type="text/javascript" src="public/js/bootstrap.min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
-<![endif]--><title>用户查看</title>
+<![endif]--><title>管理用户</title>
 </head>
 <body>
-<div class="cl pd-20" style=" background-color:#5bacb6">
-  <img class="avatar size-XL l" src="public/images/user.png">
-  <dl style="margin-left:80px; color:#fff">
-    <dt><span class="f-18">张三</span></dt>
-    <dd class="pt-10 f-12" style="margin-left:0">这家伙很懒，什么也没有留下</dd>
-  </dl>
-</div>
-<div class="pd-20">
-  <table class="table">
-    <tbody>
-      <tr>
-        <th class="text-r" width="80">性别：</th>
-        <td>男</td>
-      </tr>
-      <tr>
-        <th class="text-r">手机：</th>
-        <td>13000000000</td>
-      </tr>
-      <tr>
-        <th class="text-r">邮箱：</th>
-        <td>admin@mail.com</td>
-      </tr>
-      <tr>
-        <th class="text-r">地址：</th>
-        <td>北京市 海淀区</td>
-      </tr>
-      <tr>
-        <th class="text-r">注册时间：</th>
-        <td>2014.12.20</td>
-      </tr>
-      <tr>
-        <th class="text-r">积分：</th>
-        <td>330</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <div class="container">
+    <div class="row">
+      <table class="table table-hover">
+        <tr>
+          <th>用户id</th>
+          <th>用户名</th>
+          <th>邮箱</th>
+          <th>头像</th>
+          <th>操作</th>
+        </tr>
+        <?php
+          foreach($users as $user){
+        ?>
+        <tr>
+          <td><?php echo $user['_id'];?></td>
+          <td><?php echo $user['username'];?></td>
+          <td><?php echo $user['email'];?></td>
+          <td><img class="thumbnail" src="<?php echo empty($user['avatar'])?"/public/i/default.jpg":$user['avatar'];
+            ?>" width="10%" height="10%"></td>
+          <td><a class="btn btn-danger">删除</a></td>
+        </tr>
+        <?php } ?>
+      </table>
+    </div>
+  </div>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/H-ui.js"></script>
 <script type="text/javascript" src="js/H-ui.admin.js"></script>

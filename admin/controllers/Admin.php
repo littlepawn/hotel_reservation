@@ -22,17 +22,37 @@ class Admin extends CI_Controller{
 		$this->load->view("user",$data);
 	}
 
-	public function admin_role(){
-		$this->load->view("admin_role");
+	public function hotel(){
+		$data['hotels']=$this->muser->get_hotel_list();
+		$this->load->view("hotel",$data);
 	}
 
-	public function admin_list(){
-		$this->load->view("admin_list");
+	public function comment(){
+		$comments=$this->muser->get_comment_list();
+		foreach($comments as $key=>$comment){
+			$user=$this->muser->get_user_by_id($comment['uid']);
+			$comments[$key]['username']=$user['username'];
+			$hotel=$this->muser->get_hotel_by_id($comment['hotel_id']);
+			$comments[$key]['title']=$hotel['title'];
+		}
+		$data['comments']=$comments;
+		$this->load->view("comment",$data);
 	}
+
+	public function del_comment(){
+		$cid=$_REQUEST['cid'];
+		$this->muser->del_comment($cid);
+		$this->comment();
+	}
+
+
+
+
+
+
 
 	public function get_user_list(){
 		$user_array=$this->muser->get_user_list();
-		// $this->dump($user_array);
 		return $user_array;
 	}
 

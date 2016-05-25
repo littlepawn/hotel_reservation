@@ -24,7 +24,7 @@
 <body>
 <div class="pd-20" style="padding-top:20px;">
   <p class="f-20 text-success">欢迎登录后台模版！</p>
-  <p>登录次数：18 </p>
+<!--  <p>登录次数：18 </p>-->
   <p>上次登录IP：222.35.131.79  上次登录时间：2016-5-14 11:19:55</p>
   <table class="table table-border table-bordered table-bg">
     <thead>
@@ -43,11 +43,11 @@
     <tbody>
       <tr class="text-c">
         <td>总数</td>
-        <td>92</td>
-        <td>9</td>
         <td>0</td>
-        <td>8</td>
-        <td>20</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
       </tr>
       <tr class="text-c">
         <td>今日</td>
@@ -67,7 +67,7 @@
       </tr>
       <tr class="text-c">
         <td>本周</td>
-        <td>2</td>
+        <td>0</td>
         <td>0</td>
         <td>0</td>
         <td>0</td>
@@ -75,7 +75,7 @@
       </tr>
       <tr class="text-c">
         <td>本月</td>
-        <td>2</td>
+        <td>0</td>
         <td>0</td>
         <td>0</td>
         <td>0</td>

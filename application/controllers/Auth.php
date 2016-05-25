@@ -55,7 +55,7 @@ class Auth extends CI_Controller{
 
             $data=array(
                 "email"=>$email,
-                "name"=>$name,
+                "username"=>$name,
                 "password"=>$password,
             );
             $user_id=$this->mauth->insert_user($data);

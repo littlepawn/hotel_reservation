@@ -8,16 +8,36 @@ class Muser extends CI_Model{
 		$this->_db_hotel=$this->load->database("default",true);
 	}
 
+	public function get_user_by_id($id){
+		$this->_db_hotel->where("_id",$id);
+		$query=$this->_db_hotel->get($this->_db_user);
+		return $query->row_array();
+	}
+
 	public function get_user_list(){
 		$query=$this->_db_hotel->get($this->_db_user);
 		return $query->result_array();
 	}
 
+	public function get_hotel_by_id($id){
+		$this->_db_hotel->where("_id",$id);
+		$query=$this->_db_hotel->get("hotel");
+		return $query->row_array();
+	}
 
-	//test
 	public function get_hotel_list(){
 		$query=$this->_db_hotel->get("hotel");
 		return $query->result_array();
+	}
+
+	public function get_comment_list(){
+		$query=$this->_db_hotel->get("comment");
+		return $query->result_array();
+	}
+
+	public function del_comment($cid){
+		$this->_db_hotel->where("_id",$cid);
+		$this->_db_hotel->delete("comment");
 	}
 
 	public function get_reservation_list(){

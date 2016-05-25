@@ -45,8 +45,8 @@
 		<li class="dropDown dropDown_hover"><a href="#" class="dropDown_A"><?php $admin=$this->session->userdata('admin');echo $admin['email'];?>	<i
 					class="Hui-iconfont">&#xe6d5;</i></a>
 			<ul class="dropDown-menu radius box-shadow">
-				<li><a href="#">个人信息</a></li>
-				<li><a href="#">切换账户</a></li>
+<!--				<li><a href="#">个人信息</a></li>-->
+<!--				<li><a href="#">切换账户</a></li>-->
 				<li><a href="#">退出</a></li>
 			</ul>
 		</li>
@@ -55,81 +55,28 @@
 <aside class="Hui-aside">
 	<input runat="server" id="divScrollValue" type="hidden" value="" />
 	<div class="menu_dropdown bk_2">
-		<dl id="menu-picture">
-			<dt><i class="Hui-iconfont">&#xe613;</i> 图片管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a _href="picture-list.html" href="javascript:void(0)">图片管理</a></li>
-				</ul>
-			</dd>
-		</dl>
 		<dl id="menu-product">
 			<dt><i class="Hui-iconfont">&#xe620;</i> 酒店管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a _href="product-brand.html" href="javascript:void(0)">商家管理</a></li>
+					<li><a _href="?c=admin&m=hotel" href="javascript:void(0)">商家管理</a></li>
 					<li><a _href="product-category.html" href="javascript:void(0)">房间管理</a></li>
 				</ul>
 			</dd>
 		</dl>
-		<!--<dl id="menu-page">
-			<dt><i class="Hui-iconfont">&#xe626;</i> 页面管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a _href="page-home.html" href="javascript:void(0)">首页管理</a></li>
-					<li><a _href="page-flinks.html" href="javascript:void(0)">友情链接</a></li>
-				</ul>
-			</dd>
-		</dl>-->
 		<dl id="menu-comments">
 			<dt><i class="Hui-iconfont">&#xe622;</i> 评论管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a _href="feedback-list.html" href="javascript:void(0)">评论反馈</a></li>
+					<li><a _href="?c=admin&m=comment" href="javascript:void(0)">评论反馈</a></li>
 				</ul>
 			</dd>
 		</dl>
-		<!--<dl id="menu-order">
-			<dt><i class="Hui-iconfont">&#xe63a;</i> 财务管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a _href="order-list.html" href="javascript:void(0)">订单列表</a></li>
-					<li><a _href="recharge-list.html" href="javascript:void(0)">充值管理</a></li>
-					<li><a _href="invoice-list.html" href="javascript:void(0)">发票管理</a></li>
-				</ul>
-			</dd>
-		</dl>-->
 		<dl id="menu-member">
 			<dt><i class="Hui-iconfont">&#xe60d;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a _href="?c=admin&m=user" href="javascript:;">用户列表</a></li>
-					<li><a _href="member-del.html" href="javascript:;">删除的用户</a></li>
-					<li><a _href="member-record-browse.html" href="javascript:void(0)">浏览记录</a></li>
-					<li><a _href="member-record-download.html" href="javascript:void(0)">下载记录</a></li>
-					<li><a _href="member-record-share.html" href="javascript:void(0)">分享记录</a></li>
-				</ul>
-			</dd>
-		</dl>
-		<dl id="menu-admin">
-			<dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a _href="?c=admin&m=admin_role" href="javascript:void(0)">角色管理</a></li>
-					<li><a _href="admin-permission.html" href="javascript:void(0)">权限管理</a></li>
-					<li><a _href="?c=admin&m=admin_list" href="javascript:void(0)">管理员列表</a></li>
-				</ul>
-			</dd>
-		</dl>
-		<dl id="menu-system">
-			<dt><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a _href="system-base.html" href="javascript:void(0)">系统设置</a></li>
-					<li><a _href="system-category.html" href="javascript:void(0)">栏目管理</a></li>
-					<li><a _href="system-data.html" href="javascript:void(0)">数据字典</a></li>
-					<li><a _href="system-shielding.html" href="javascript:void(0)">屏蔽词</a></li>
-					<li><a _href="system-log.html" href="javascript:void(0)">系统日志</a></li>
 				</ul>
 			</dd>
 		</dl>
