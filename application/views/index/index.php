@@ -113,8 +113,8 @@
 						<span>目的地<input id="txtadress" type="text"/></span>
 						<span>入住<input type="text" class="mh_date" readonly="true" /></span>
 						<span>退房<input type="text" class="mh_date" readonly="true" /></span>
-						<span>酒店名称<input type="text" class="ju-name" /></span>
-						<a href="#" id="submit-btn"/>搜索</a>
+						<span>酒店名称<input id="hotelname" type="text" class="ju-name" /></span>
+						<a href="javascript:;" id="submit-btn"/>搜索</a>
 					</div>
 
 					<div style="padding:10px 30px 10px 10px;">
@@ -132,11 +132,13 @@
 										<div class="ui-tab-bd">
 
 											<div id=“area” class="ui-tab-content clearfix">
+												<p><label><a href="javascript:;" attrval="不限" id="emptyTabrad">不限</a></label></p>
 												<?php
 													foreach ($areas as $area) {
 												?>
-														<p><label><input name="tabrad1" type="radio"
-																		 value=""/><?php echo
+														<p><label><input name="tabrad" type="radio"
+																		 value="<?php echo $area['areaID'];?>"/><?php
+																echo
 																$area['area'];?></label></p>
 												<?php
 													}
@@ -157,19 +159,19 @@
 										<dt>酒店价格</dt>
 										<dd>
 											<label><a href="javascript:;" attrval="不限">不限</a></label>
-											<label><input name="radio2" type="radio" value="" /><a href="javascript:;" values2="99" values1="1" attrval="1-99">100元以下</a></label>
-											<label><input name="radio2" type="radio" value="" /><a href="javascript:;" values2="300" values1="100" attrval="100-300">100-300元 </a></label>
-											<label><input name="radio2" type="radio" value="" /><a href="javascript:;" values2="600" values1="300" attrval="300-600">300-600元</a></label>
-											<label><input name="radio2" type="radio" value="" /><a href="javascript:;" values2="1500" values1="600" attrval="5000以上">600-1500元</a></label>
+											<label><input name="radio2" type="radio" value="1" /><a href="javascript:;" values2="99" values1="1" attrval="1-99">100元以下</a></label>
+											<label><input name="radio2" type="radio" value="2" /><a href="javascript:;" values2="300" values1="100" attrval="100-300">100-300元 </a></label>
+											<label><input name="radio2" type="radio" value="3" /><a href="javascript:;" values2="600" values1="300" attrval="300-600">300-600元</a></label>
+											<label><input name="radio2" type="radio" value="4" /><a href="javascript:;" values2="1500" values1="600" attrval="5000以上">600-1500元</a></label>
 										</dd>
 									</dl>
 									<dl class="listIndex">
 										<dt>酒店星级</dt>
 										<dd>
 											<label><a href="javascript:;" attrval="不限">不限</a> </label>
-											<label><input name="checkbox2" type="checkbox" value="" /><a href="javascript:;"> 五星/豪华</a></label>
-											<label><input name="checkbox2" type="checkbox" value="" /><a href="javascript:;">四星/高档</a></label>
-											<label><input name="checkbox2" type="checkbox" value="" /><a href="javascript:;">三星/舒适</a></label>
+											<label><input name="radio3" type="radio" value="5" /><a href="javascript:;"> 五星/豪华</a></label>
+											<label><input name="radio3" type="radio" value="4" /><a href="javascript:;">四星/高档</a></label>
+											<label><input name="radio3" type="radio" value="3" /><a href="javascript:;">三星/舒适</a></label>
 										</dd>
 									</dl>
 								</div>
@@ -207,28 +209,35 @@
 <!--		<div class="col-md-1"></div>-->
 		<div class="col-md-11 house-info">
 			<div class="row house-list">
+
+				<?php
+					foreach ($hotels as $key => $hotel){
+				?>
 				<div class="col-md-2 picture">
-					<img class="img-thumbnail" width="100%" height="100%" src="/public/i/1.jpg" alt="..." >
+					<img class="img-thumbnail" width="100%" height="100%" src="<?php echo $hotel['image'];?>" alt="..
+					." >
 				</div>
 				<div class="col-md-6">
 					<table class="table table-hover">
-						<tr><th><a style="text-decoration: none" href="#" id="torentinfo">xxxx</a></th></tr>
-						<tr><td>位置</td></tr>
-						<tr><td>Data</td></tr>
+						<tr><th><a style="text-decoration: none" href="#"><?php echo $hotel['title'];?></a></th></tr>
+						<tr><td><?php echo $hotel['content'];?></td></tr>
+						<tr><td><?php echo $hotel['address'];?></td></tr>
 					</table>
 				</div>
 				<div class="col-md-2">
 					<table class="table table-hover">
-						<tr><th>xxxx</th></tr>
-						<tr>xxx</td></tr>
+						<tr><th>最低房价</th></tr>
+						<tr><td><?php echo $hotel['low_price'];?></td></tr>
 					</table>
 				</div>
 				<div class="col-md-2">
 					<table class="table table-hover">
-						<tr><th>xxxx</th></tr>
-						<tr>xxx</td></tr>
+						<tr><th>评分</th></tr>
+						<tr><td>5.0</td></td></tr>
 					</table>
 				</div>
+				<div class="clearfix"></div>
+				<?php }?>
 			</div>
 
 
@@ -249,9 +258,38 @@
 	</div>
 
 <!-- 	<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>-->
+	<script type="text/javascript">
+		$(function () {
+			$("#submit-btn").click(function () {
+				var area=$("#txtadress");
+				var hotelname=$("#hotelname");
 
+				var param1=0;
+				var areaID=$('input[name="tabrad"]:checked');
+				if(areaID.val() != undefined){
+					param1=areaID.val();
+				}
+
+				var param2=0;
+				var price=$('input[name="radio2"]:checked');
+				if(price.val() != undefined){
+					param2=price.val();
+				}
+				var param3=0;
+				var level=$('input[name="radio3"]:checked');
+				if(level.val() != undefined){
+					param3=level.val();
+				}
+				console.log(param1+" "+param2+" "+param3);
+//				window.location.href="?c=index&m=index&area="+
+			})
+		})
+	</script>
     <script type="text/javascript">
 	  $(function () {
+		  $("#emptyTabrad").click(function () {
+			  $('input[name="tabrad"]').removeAttr("checked");
+		  })
 		  $("#login").click(function () {
 			  window.location.href="?c=auth&m=login";
 		  })
