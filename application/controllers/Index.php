@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Index extends CI_Controller{
-    private static $limit=1;
+    private static $limit=5;
     public function __construct(){
         parent::__construct();
         $this->load->model("mhotel");
@@ -10,14 +10,44 @@ class Index extends CI_Controller{
     }
 
     public function index(){
+        $page=1;
+        if(isset($_REQUEST['page']))
+            $page=$_REQUEST['page'];
         $cityID=$this->get_current_cityID();
-        $data['hotels']=$this->mhotel->get_hotel_info($cityID);
+        $hotels=$this->mhotel->get_hotel_info($cityID);
+        $hotels=$this->add_comment_count($hotels);
+        $data['count']=count($hotels);
+        $data['page_count']=intval((count($hotels)-1)/SELF::$limit)+1;
+        $data['page']=$page;
+        $data['hotels']=$this->paging_hotels($page,$hotels);
         $areas=$this->get_citys();
         $data['areas']=$areas;
-//        $count=$this->mhotel->count_hotel($cityID);
-//        $data['pages']=($count-1)/SELF::$limit+1;
         $data['cityName']=$this->getPlace();
         $this->load->view("index/index",$data);
+    }
+
+    public function paging_hotels($page,$hotels){
+//        $_SESSION['hotels']=$hotels;
+        $count=count($hotels);
+        if($count>SELF::$limit)
+            $count=SELF::$limit;
+        $hotel_array=array();
+        if(empty($hotels))
+            return array();
+//        echo $page;exit;
+//        var_dump($hotels[0]);
+        for ($i=($page-1)*$count,$j=0;$j<$count;$j++,$i++){
+            $hotel_array[]=$hotels[$i];
+        }
+        return $hotel_array;
+    }
+
+    public function add_comment_count($hotels){
+        foreach ($hotels as $key=>$hotel){
+            $comments=$this->mhotel->get_comments_by_hid($hotel['_id']);
+            $hotels[$key]['comments']=count($comments);
+        }
+        return $hotels;
     }
 
     public function filter(){
@@ -27,12 +57,17 @@ class Index extends CI_Controller{
         $areaID=intval($_REQUEST['areaID']);
         $price=intval($_REQUEST['price']);
         $level=intval($_REQUEST['level']);
+
+        $page=1;
+        if(isset($_REQUEST['page']))
+            $page=$_REQUEST['page'];
         $param=array(
             "area"=>$city,
             "hotelname"=>$hotelname,
             "areaID"=>$areaID,
             "price"=>$price,
             "level"=>$level,
+            "page"=>$page,
         );
         if(!empty($city)) {
             $cityID = $this->get_cityID_by_name($city);
@@ -67,9 +102,16 @@ class Index extends CI_Controller{
         if($param['type']==1) {
             $data['areas'] = array();
             $data['hotels']=array();
+            $data['count']=0;
+            $data['page_count']=1;
+            $data['page']=1;
             $data['flag']=true;
         }elseif($param['type']==2){
-            $data['hotels']=$this->mhotel->get_hotel_info($param['cityID']);
+            $hotels=$this->mhotel->get_hotel_info($param['cityID']);
+            $hotels=$this->add_comment_count($hotels);
+            $data['count']=count($hotels);
+            $data['page_count']=intval((count($hotels)-1)/SELF::$limit)+1;
+            $data['hotels']=$this->paging_hotels($param['page'],$hotels);
             $areas=$this->get_areas_by_cityID($param['cityID']);
             $data['flag']=true;
             foreach($areas as $area){
@@ -81,10 +123,16 @@ class Index extends CI_Controller{
                     break;
                 }
             }
+            $data['page']=$param['page'];
             $data['areas']=$areas;
         }elseif($param['type']==3||$param['type']==4){
-            $data['hotels']=$param['hotels'];
+            $hotels=$param['hotels'];
+            $hotels=$this->add_comment_count($hotels);
+            $data['count']=count($hotels);
+            $data['page_count']=intval((count($hotels)-1)/SELF::$limit)+1;
+            $data['hotels']=$this->paging_hotels($param['page'],$hotels);
             $data['areas']=$param['areas'];
+            $data['page']=$param['page'];
             $data['cityName']=$this->getPlace();
         }else{
             echo "error";
@@ -138,7 +186,7 @@ class Index extends CI_Controller{
         $this->load->model("mhotel");
         $hotel_array=array();
         foreach($reservation as $value){
-            $hotel_array[]=$this->mhotel->get_hotel_by_id($value['hotel_id']);
+            $hotel_array[]=$this->mhotel->get_hotel_info_by_id($value['hotel_id']);
         }
         $data['hotel']=$hotel_array;
         $this->load->view("hotel/reservation",$data);
