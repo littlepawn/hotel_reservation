@@ -189,17 +189,9 @@
 					</div>
 
 					<div class="hasBeenSelected clearfix">
-						<span id="time-num"><font><?php echo count($hotels);?></font>家酒店</span>
+						<span id="time-num"><font><?php echo $count;?></font>家酒店</span>
 						<div style="float:right;" class="eliminateCriteria">【清空全部】</div>
-<!--						<dl>-->
-<!--							<dt>已选条件：</dt>-->
-<!--							<dd style="display:none" class="clearDd">-->
-<!--								<div class="clearList"></div>-->
-<!--							</dd>-->
-<!--						</dl>-->
 					</div>
-
-<!--					<script type="text/javascript" src="/public/js/shaixuan.js"></script>-->
 
 				</div>
 
@@ -209,7 +201,7 @@
 		<hr />
 		<div class="panel panel-default">
 		  <div class="panel-heading">
-			<h3 class="panel-title"><?php echo count($hotels);?>个酒店满足排序</h3>
+			<h3 class="panel-title"><?php echo $count;?>个酒店满足排序</h3>
 		  </div>
 		  <div class="panel-body">
 			默认排序
@@ -239,13 +231,13 @@
 				<div class="col-md-2">
 					<table class="table table-hover">
 						<tr><th>最低房价</th></tr>
-						<tr><td><?php echo $hotel['low_price'];?></td></tr>
+						<tr><td>￥ <?php echo $hotel['low_price'];?></td></tr>
 					</table>
 				</div>
 				<div class="col-md-2">
 					<table class="table table-hover">
-						<tr><th>评分</th></tr>
-						<tr><td>5.0</td></td></tr>
+						<tr><th>评论</th></tr>
+						<tr><td><?php echo $hotel['comments'];?> 条</td></td></tr>
 					</table>
 				</div>
 				<div class="clearfix"></div>
@@ -255,17 +247,72 @@
 
 <!--		<div class="col-md-1"></div>-->
 		<div class="row">
-<!--			<div class="col-md-1"></div>-->
+<!--			<div class="col-md-1">--><?php //echo $page_count;?><!--</div>-->
 			<div class="col-md-8">
 				<nav>
 				  <ul class="pagination">
-					<li><a href="#">&laquo;</a></li>
-					<li><a href="javascript:;">1</a></li>
-					<li><a href="#">&raquo;</a></li>
+					<li><a href="<?php
+						if(isset($_GET['page']))
+							$page=$_GET['page'];
+						if($page!=1){
+							$page--;
+							if(!isset($_GET['page'])){
+									echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'].'&page='.$page;
+							}else{
+								$params=generate_param($page);
+								echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?'.$params;
+							}
+						}else{
+							echo 'javascript:;';
+						}?>">&laquo;</a></li>
+					<?php
+						for($i=1;$i<=$page_count;$i++){
+					?>
+					  <li><a href="<?php
+						if(isset($_GET['page']))
+						$page=$_GET['page'];
+						if(!isset($_GET['page'])){
+								echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'].'&page='.$i;
+						}else{
+							$params=generate_param($i);
+							echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?'.$params;
+						}
+						?>"><?php echo $i;?></a></li>
+					<?php
+					}
+					?>
+					<li><a href="<?php
+						if(isset($_GET['page']))
+							$page=$_GET['page'];
+						if($page!=$page_count){
+//							echo $page;
+							$page++;
+							if(!isset($_GET['page'])){
+									echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'].'&page='.$page;
+							}else{
+								$params=generate_param($page);
+								echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?'.$params;
+							}
+						}else{
+							echo 'javascript:;';
+						}?>">&raquo;
+						</a></li>
 				  </ul>
 				</nav>
 			</div>
-			<div class="col-md-4"></div>
+			<div class="col-md-4"><?php
+				function generate_param($page){
+					$params=explode("=",$_SERVER['QUERY_STRING']);
+					foreach ($params as $key=>$param){
+						if($param=='&page'){
+							$params[++$key]=$page;
+						}
+					}
+					$params=implode("=",$params);
+//					echo $page;
+					return $params;
+				}
+				?></div>
 		</div>
 	</div>
 

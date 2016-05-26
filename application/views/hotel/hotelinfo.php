@@ -8,39 +8,77 @@
     <link href="/public/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
     <style type="text/css">
+    body {
+      padding-top: 50px;
+    }
 
-    	body {
-    		padding-top: 50px;
-    	}
-    	#name{
-    		margin-left: 120px;
-    	}
-    	#info{
-    		margin: 7% auto;
+    #name{
+    	margin-left: 120px;
+    }
+
+    #info{
+    	margin: 7% auto;
 			margin-bottom: 0%;
-    	}
+    }
+
 		#head-info{
 			padding: 20px;
 			border: 1px solid #66ccff;
 		}
+
 		#map{
 			margin-top: 7%;
 		}
+
 		#hotel-list{
-			padding-top: 5%;
+			padding-top: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 		}
-    	.house-info{
+
+    .house-info{
 			margin: 20px auto;
 		}
-        #panel{
-            /*position: absolute;*/
-            background-color: white;
-            max-height: 90%;
-            overflow-y: auto;
-            top: 10px;
-            right: 10px;
-            width: 280px;
-        }
+
+    .room-img{
+      max-width: 120%;
+    }
+
+    .room-price{
+      color: red;
+      font-size: 30px;
+    }
+
+    .small-text {
+      font-size: 12px;
+      color: red;
+      vertical-align: 7px;
+    }
+
+    .small-money{
+      font-size: 14px;
+      vertical-align: 12px;
+    }
+
+    #panel{
+      /*position: absolute;*/
+      background-color: white;
+      max-height: 90%;
+      overflow-y: auto;
+      top: 10px;
+      right: 10px;
+      width: 280px;
+    }
+
+    .comment-time {
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 0.1rem;
+    }
+
+    .display-name{
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
     </style>
   </head>
   <body>
@@ -126,23 +164,35 @@
 					<?php
 						foreach($apartments as $apartment){
 					?>
-					<div class="row" id="hotel-list">
-						<div class="col-md-2">
-							<img class="img-thumbnail" src="/public/i/hotel/1.jpg" alt="..." >
-							<label class="control-label col-md-offset-3"><?php echo $apartment['type'];?></label>
-						</div>
-						<div class="col-md-8">
-							<table class="table table-hover">
-								<tr><td><?php echo $apartment['title'];?></td></tr>
-								<tr><td><?php echo $apartment['desp'];?></td></tr>
-								<tr><td><?php echo $apartment['price'];?>元/间</td></tr>
-							</table>
-						</div>
-						<div class="col-md-2">
-							<a class="btn btn-primary btn-block" href="javascript:;" onclick="reserve(<?php echo
-							$hotel['_id']?>,<?php echo $apartment['_id'];?>)">预定</a>
-						</div>
-					</div>
+          <div class="row" id="hotel-list">
+            <div class="col-md-2">
+              <img class="img-thumbnail room-img" src="/public/i/hotel/1.jpg" alt="..." >
+            </div>
+            <div class="col-md-8">
+              <div>
+                <div>
+                  <h3><strong><?php echo $apartment['title']; ?></strong></h3>
+                </div>
+                <div>
+                  <?php echo $apartment['type'];?> | <?php echo $apartment['desp'];?>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div>
+                <div>
+                  <div>
+                    <span class="small-money">¥</span>
+                    <span class="room-price"><?php echo $apartment['price'];?></span>
+                    <span class="small-text">起</span>
+                  </div>
+                </div>
+                <div>
+                  <a class="btn btn-danger btn-block" href="javascript:;" onclick="reserve(<?php echo $hotel['_id']?>,<?php echo $apartment['_id'];?>)">预定</a>
+                </div>
+              </div>
+            </div>
+          </div>
 					<?php } ?>
 				</div>
 			</div>
@@ -160,12 +210,16 @@
 							<img class="img-thumbnail" src="<?php echo $comment['avatar']?>" alt="..." >
 						</div>
 						<div class="col-md-8">
-							<table class="table table-hover">
-								<tr><td><?php echo $comment['username']."---------".$comment['create_time'];
-										?></td></tr>
-								<tr><td><?php echo $comment['text'];?></td></tr>
-							</table>
+								<div class="display-name">
+                  <strong><?php echo $comment['username'] ?></strong>
+                </div>
+                <div>
+                  <?php echo $comment['text'];?>
+                </div>
 						</div>
+            <div class="col-md-2">
+              <span class="comment-time"><?php echo $comment['create_time'] ?></span>
+            </div>
 					</div>
 					<?php } ?>
 				</div>
@@ -176,7 +230,7 @@
 				    <div class="form-group">
 					    <label for="name">发表评论</label>
 						<input type="hidden" value="<?php echo $hotel['_id'];?>" name="hid">
-					    <textarea class="form-control" rows="3" name="comment" id="comment"></textarea>
+					    <textarea style="height: 120px;" class="form-control" rows="3" name="comment" id="comment"></textarea>
 						<br>
 					    <input class="btn btn-primary" type="submit" value="确认提交">
 				  </div>
