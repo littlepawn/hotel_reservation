@@ -72,19 +72,19 @@
 					    	<a href="javascript:;">修改个人资料</a>
 					    </li>
 					</ul>
-					<div class="col-md-4" id="head-sculpture">
-                        <form>
-                            <img class="img-thumbnail" src="public/i/default.jpg" alt="..." width="200px" height="200px">
-                            <input type="file" class="form-control col-md-1">
-                            <button class="btn btn-primary btn-lg" type="submit">更改头像</button>
-                        </form>
-					</div>
-					<div class="col-md-8">
-						<form class="form-horizontal" role="form" action="" method="post">
+<!--					<div class="col-md-4" id="head-sculpture">-->
+<!--                        <form>-->
+<!--                            <img class="img-thumbnail" src="public/i/default.jpg" alt="..." width="200px" height="200px">-->
+<!--                            <input type="file" class="form-control col-md-1">-->
+<!--                            <button class="btn btn-primary btn-lg" type="submit">更改头像</button>-->
+<!--                        </form>-->
+<!--					</div>-->
+					<div class="col-md-8 col-md-offset-2">
+						<form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
 							<div class="form-group">
 								<label class="control-label col-md-2">用户名</label>
 								<div class="col-md-6">
-									<input class="form-control" type="text" name="name" placeholder="xx">
+									<input class="form-control" type="text" name="name" value="<?php echo $_SESSION['user']['name'] ?>">
 								</div>
 								<!--<div class="col-md-4"></div>-->
 							</div>
@@ -92,24 +92,19 @@
 							<div class="form-group">
 								<label class="control-label col-md-2">登录密码</label>
 								<label class="control-label col-md-2" id="password">已设置</label>
-								<div class="col-md-2 col-md-offset-1">
-									<a class="btn btn btn-default" href="__CONTROLLER__/editpassword">修改</a>
-								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="control-label col-md-2">邮箱</label>
-								<label class="control-label col-md-3" id="email">xx</label>
-								<div class="col-md-2 col-md-offset-1">
-									<a class="btn btn btn-default" href="__CONTROLLER__/editemail">修改</a>
+								<div class="col-md-6">
+									<input class="form-control" type="text" name="name" value="<?php echo $_SESSION['user']['email'];?>">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="control-label col-md-2">手机</label>
-								<label class="control-label col-md-2" id="phone">xx</label>
-								<div class="col-md-2 col-md-offset-1">
-									<a class="btn btn btn-default" href="__CONTROLLER__/editphone">修改</a>
+								<div class="col-md-6">
+									<input class="form-control" type="text" name="name" value="<?php echo $_SESSION['user']['mobile'];?>">
 								</div>
 							</div>
 
@@ -121,6 +116,12 @@
 					   			 </div>
 							</div>
 
+							<div class="form-group">
+								<label class="control-label col-md-2">头像</label>
+								<div class="col-md-6">
+									<input class="form-control" type="file" name="avatar">
+								</div>
+							</div>
 
 							<div class="form-group">
 								<div class="col-md-1"></div>
