@@ -227,7 +227,11 @@ class Index extends CI_Controller{
         if($location===FALSE) return "";
         if (empty($location->desc)) {
 //            $loc = $location->province.$location->city.$location->district.$location->isp;
-            $loc=array($location->province,$location->city);
+            if(isset($location->city)){
+				$loc=array($location->province,$location->city);
+			}else{
+				$loc=array("江苏省","徐州");
+			}
         }else{
             $loc = $location->desc;
         }

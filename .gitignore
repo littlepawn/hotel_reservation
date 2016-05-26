@@ -52,4 +52,5 @@ Temporary Items
 /.idea/*
 /user_guide/*
 /vendor/*
+/public/*
 /session_file/*
