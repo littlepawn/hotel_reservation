@@ -93,7 +93,7 @@ class Admin extends CI_Controller{
 			$this->resize($data['upload_data']['full_path']);
             $filename=$data['upload_data']['file_name'];
             $fileurl=base_url()."uploads/".$filename;
-            $hotel_array['image']=$fileurl;
+            $apartment_array['image']=$fileurl;
         }
         $this->muser->insert_apartment($apartment_array);
         $this->apartment();

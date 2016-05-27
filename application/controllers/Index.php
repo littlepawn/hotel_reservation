@@ -75,15 +75,34 @@ class Index extends CI_Controller{
                 $param['type']=1;
                 $this->index_filter($param);
             }else{
-                $param['type']=2;
-                $param['cityID']=$cityID;
-                $this->index_filter($param);
+                if($areaID==0) {
+                    /*$param['type'] = 2;
+                    $param['cityID'] = $cityID;
+                    $this->index_filter($param);*/
+                    $param['type']=4;
+                    $cityID=$this->get_current_cityID();
+                    $hotels=$this->get_hotels_by_cityID($cityID,$hotelname,$price,$level);
+                    $hotels=$this->add_comment_count($hotels);
+                    $param['hotels']=$hotels;
+                    $areas=$this->get_areas_by_cityID($cityID);
+                    $param['areas']=$areas;
+                    $this->index_filter($param);
+                }else{
+                    $param['type']=3;
+                    $hotels=$this->get_hotels_by_areaID($areaID,$hotelname,$price,$level);
+                    $hotels=$this->add_comment_count($hotels);
+                    $param['hotels']=$hotels;
+                    $areas=$this->get_areas_by_cityID($cityID);
+                    $param['areas']=$areas;
+                    $this->index_filter($param);
+                }
             }
         }else{
             $areas=$this->get_citys();
             if(!empty($areaID)){
                 $param['type']=3;
                 $hotels=$this->get_hotels_by_areaID($areaID,$hotelname,$price,$level);
+                $hotels=$this->add_comment_count($hotels);
                 $param['hotels']=$hotels;
                 $param['areas']=$areas;
                 $this->index_filter($param);
@@ -91,6 +110,7 @@ class Index extends CI_Controller{
                 $param['type']=4;
                 $cityID=$this->get_current_cityID();
                 $hotels=$this->get_hotels_by_cityID($cityID,$hotelname,$price,$level);
+                $hotels=$this->add_comment_count($hotels);
                 $param['hotels']=$hotels;
                 $param['areas']=$areas;
                 $this->index_filter($param);
@@ -127,7 +147,7 @@ class Index extends CI_Controller{
             $data['areas']=$areas;
         }elseif($param['type']==3||$param['type']==4){
             $hotels=$param['hotels'];
-            $hotels=$this->add_comment_count($hotels);
+
             $data['count']=count($hotels);
             $data['page_count']=intval((count($hotels)-1)/SELF::$limit)+1;
             $data['hotels']=$this->paging_hotels($param['page'],$hotels);
@@ -184,7 +204,11 @@ class Index extends CI_Controller{
         $this->load->model("mhotel");
         $hotel_array=array();
         foreach($reservation as $value){
-            $hotel_array[]=$this->mhotel->get_hotel_info_by_id($value['hotel_id']);
+            $hotel=$this->mhotel->get_hotel_info_by_id($value['hotel_id']);
+            $apartment=$this->mhotel->get_apartment_info_by_id($value['apartment_id']);
+            $hotel['type']=$this->transform_type($apartment['type']);
+            $hotel['price']=$apartment['price'];
+            $hotel_array[]=$hotel;
         }
         $data['hotel']=$hotel_array;
         $this->load->view("hotel/reservation",$data);
@@ -193,23 +217,40 @@ class Index extends CI_Controller{
     public function reserve(){
         $hid=$_REQUEST['hid'];
         $aid=$_REQUEST['aid'];
-        echo $hid." ".$aid;
-        exit();
-       /* $user=$this->session->userdata("user");
+        $user=$this->session->userdata("user");
         $data=array(
             "user_id"=>$user['id'],
             "hotel_id"=>$hid,
             "apartment_id"=>$aid,
         );
         $rid=$this->muser->reserve($data);
-        echo $rid;
-        exit();
         if($rid>0) {
             echo "<script>alert('预订成功');</script>";
         }else{
             echo "<script>alert('预订无效');</script>";
         }
-         echo "<script>location.href='" . $_SERVER["HTTP_REFERER"] . "';</script>";*/
+         echo "<script>location.href='" . $_SERVER["HTTP_REFERER"] . "';</script>";
+    }
+
+    private function transform_type($type){
+        $explanation="";
+        switch($type) {
+            case 1:
+                $explanation="标间";
+                break;
+            case 2:
+                $explanation="大床房";
+                break;
+            case 3:
+                $explanation="商务房";
+                break;
+            case 4:
+                $explanation="家庭房";
+                break;
+            default:
+                break;
+        }
+        return $explanation;
     }
 
     public function del_reservation(){

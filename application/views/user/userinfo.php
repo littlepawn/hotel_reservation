@@ -38,7 +38,7 @@
 	  <div class="container">
 	    <div class="row">
 	    	<div class="col-md-10">
-	      		<a class="navbar-brand" href="#">
+	      		<a class="navbar-brand" href="?c=index&m=index">
 	        		<p>连锁酒店预定</p>
 	      		</a>
 	      	</div>

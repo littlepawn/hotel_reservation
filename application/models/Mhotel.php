@@ -72,4 +72,10 @@ class Mhotel extends CI_Model{
         return $total;
     }
 
+    public function get_apartment_info_by_id($id){
+        $this->db->where("_id",$id);
+        $query=$this->db->get($this->_apartment_db);
+        return $query->row_array();
+    }
+
 }

@@ -42,7 +42,7 @@
 	  <div class="container">
 	    <div class="row">
 	    	<div class="col-md-10">
-	      		<a class="navbar-brand" href="#">
+	      		<a class="navbar-brand" href="?c=index&m=index">
 	        		<p>连锁酒店预定</p>
 	      		</a>
 	      	</div>
@@ -84,12 +84,24 @@
                 ?>
                     <div class="row hotel-list">
                         <div class="col-md-2 picture">
-                            <img class="img-thumbnail" src="/public/i/hotel/<?php echo $value['_id'];?>.jpg" alt="..." >
+                            <img class="img-thumbnail" src="<?php echo $value['image'];?>" alt="..." >
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-4">
                             <table class="table table-hover">
                                 <tr><th><?php echo $value['title'];?></th></tr>
                                 <tr><td><?php echo $value['content'];?></td></tr>
+                            </table>
+                        </div>
+                        <div class="col-md-2">
+                            <table class="table table-hover">
+                                <tr><th>房型</th></tr>
+                                <tr><td><?php echo $value['type'];?></td></tr>
+                            </table>
+                        </div>
+                        <div class="col-md-2">
+                            <table class="table table-hover">
+                                <tr><th>价格</th></tr>
+                                <tr><td>￥ <?php echo $value['price'];?></td></tr>
                             </table>
                         </div>
                         <div class="col-md-2">

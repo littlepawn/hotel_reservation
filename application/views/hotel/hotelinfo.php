@@ -70,9 +70,9 @@
       width: 280px;
     }
 
-    .comment-time {
+    .comments-time {
       color: rgba(0, 0, 0, 0.5);
-      font-size: 0.1rem;
+      font-size: 1.4rem;
     }
 
     .display-name{
@@ -166,7 +166,7 @@
 					?>
           <div class="row" id="hotel-list">
             <div class="col-md-2">
-              <img class="img-thumbnail room-img" src="/public/i/hotel/1.jpg" alt="..." >
+              <img class="img-thumbnail room-img" src="<?php echo empty($apartment['image'])?'/public/i/hotel/1.jpg':$apartment['image']; ?>" alt="..." width="150px" height="130px">
             </div>
             <div class="col-md-8">
               <div>
@@ -218,7 +218,7 @@
                 </div>
 						</div>
             <div class="col-md-2">
-              <span class="comment-time"><?php echo $comment['create_time'] ?></span>
+              <span class="comments-time"><?php echo $comment['create_time'] ?></span>
             </div>
 					</div>
 					<?php } ?>
@@ -266,10 +266,10 @@
                 placeSearch.search("<?php echo $hotel['title'];?>");
             });
 		}
-		function reserve(){
+		function reserve(hid,aid){
 			var flag="<?php echo isset($_SESSION['user'])?true:false;?>";
 			if(flag){
-				alert("预定成功");
+				window.location.href="?c=index&m=reserve&hid="+hid+"&aid="+aid;
 			}else{
 				alert("登陆后才能预定");
 			}
