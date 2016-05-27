@@ -8,10 +8,18 @@
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 <link href="public/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="public/js/bootstrap.min.js" ></script>
-<title>管理商家</title>
+<title>管理酒店</title>
 </head>
 <body>
   <div class="container">
+    <br>
+    <div class="row">
+      <div class="col-md-2 col-md-offset-10">
+        <a class="btn btn-primary btn-block" href="?c=admin&m=add_hotel">添加酒店</a>
+      </div>
+    </div>
+    <br>
+
     <div class="row">
       <table class="table table-hover">
         <tr>
@@ -32,9 +40,12 @@
           <td><?php echo $hotel['content'];?></td>
           <td><?php echo $hotel['address'];?></td>
           <td><img class="thumbnail" src="<?php echo empty($hotel['image'])?"/public/i/default.jpg":$hotel['image'];
-            ?>" width="30%" height="30%"></td>
+            ?>" ></td>
             <td>￥ <?php echo $hotel['low_price'];?></td>
-          <td><a class="btn btn-danger">删除</a></td>
+          <td>
+            <a class="btn btn-success" href="?c=admin&m=add_apartment&hid=<?php echo $hotel['_id'];?>">添加房型</a><br>
+            <a class="btn btn-danger" href="?c=admin&m=del_hotel&hid=<?php echo $hotel['_id'];?>">删除</a>
+          </td>
         </tr>
         <?php } ?>
       </table>

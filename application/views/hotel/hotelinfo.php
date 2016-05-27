@@ -266,10 +266,10 @@
                 placeSearch.search("<?php echo $hotel['title'];?>");
             });
 		}
-		function reserve(hid,aid){
+		function reserve(){
 			var flag="<?php echo isset($_SESSION['user'])?true:false;?>";
 			if(flag){
-				window.location.href="?c=index&m=reserve&hid="+hid+"&aid="+aid;
+				alert("预定成功");
 			}else{
 				alert("登陆后才能预定");
 			}
@@ -301,4 +301,3 @@
     </script>
   </body>
 </html>
-

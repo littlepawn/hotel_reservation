@@ -19,7 +19,7 @@ class Auth extends CI_Controller{
                 if($user['password']!=$password){
                     $this->session->set_flashdata('error', '密码错误');
                 }else{
-                    $this->session->set_userdata("user",array("id"=>$user['_id'],"name"=>$user['username'],"email"=>$user['email'],'mobile'=>$user['mobile'],"sex"=>$user['sex']));
+                    $this->session->set_userdata("user",array("id"=>$user['_id'],"name"=>$user['username'],"email"=>$user['email'],'mobile'=>$user['mobile'],"sex"=>$user['sex'],"avatar"=>$user['avatar']));
                     redirect(base_url('index.php?c=index&m=index'));
                 }
             }

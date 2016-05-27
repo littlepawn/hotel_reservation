@@ -1,9 +1,3 @@
-<?php
-    $location="华业大厦";
-    if(isset($_GET['lacation'])){
-        $lacation=$_GET['location'];
-    }
-?>
 <!doctype html>
 <html>
 <head>
@@ -42,9 +36,7 @@
             panel: "panel"
         });
         //关键字查询
-        var location="<?php echo $location;?>";
-        placeSearch.search(location);
-        // placeSearch.search("西湖");
+        placeSearch.search('盐城一中');
     });
 </script>
 </body>

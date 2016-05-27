@@ -34,9 +34,9 @@ class Index extends CI_Controller{
         $hotel_array=array();
         if(empty($hotels))
             return array();
-//        echo $page;exit;
-//        var_dump($hotels[0]);
         for ($i=($page-1)*$count,$j=0;$j<$count;$j++,$i++){
+            if(!isset($hotels[$i]))
+                break;
             $hotel_array[]=$hotels[$i];
         }
         return $hotel_array;
@@ -193,15 +193,23 @@ class Index extends CI_Controller{
     public function reserve(){
         $hid=$_REQUEST['hid'];
         $aid=$_REQUEST['aid'];
-        $user=$this->session->userdata("user");
+        echo $hid." ".$aid;
+        exit();
+       /* $user=$this->session->userdata("user");
         $data=array(
             "user_id"=>$user['id'],
             "hotel_id"=>$hid,
             "apartment_id"=>$aid,
         );
-        $this->muser->reserve($data);
-        echo "<script>alert('预订成功');</script>";
-        echo "<script>location.href='".$_SERVER["HTTP_REFERER"]."';</script>";
+        $rid=$this->muser->reserve($data);
+        echo $rid;
+        exit();
+        if($rid>0) {
+            echo "<script>alert('预订成功');</script>";
+        }else{
+            echo "<script>alert('预订无效');</script>";
+        }
+         echo "<script>location.href='" . $_SERVER["HTTP_REFERER"] . "';</script>";*/
     }
 
     public function del_reservation(){
@@ -220,7 +228,6 @@ class Index extends CI_Controller{
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true) ; // 获取数据返回
         $location = curl_exec($ch);
         $location = json_decode($location);
-//        print_r($location);
         curl_close($ch);
 
         $loc = "";

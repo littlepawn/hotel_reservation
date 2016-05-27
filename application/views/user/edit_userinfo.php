@@ -80,11 +80,13 @@
 <!--                        </form>-->
 <!--					</div>-->
 					<div class="col-md-8 col-md-offset-2">
-						<form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+						<form class="form-horizontal" role="form" action="?c=user&m=edit_user" method="post"
+							  enctype="multipart/form-data">
 							<div class="form-group">
 								<label class="control-label col-md-2">用户名</label>
 								<div class="col-md-6">
-									<input class="form-control" type="text" name="name" value="<?php echo $_SESSION['user']['name'] ?>">
+									<input class="form-control" type="text" name="username" value="<?php echo
+									$_SESSION['user']['name'] ?>">
 								</div>
 								<!--<div class="col-md-4"></div>-->
 							</div>
@@ -97,22 +99,37 @@
 							<div class="form-group">
 								<label class="control-label col-md-2">邮箱</label>
 								<div class="col-md-6">
-									<input class="form-control" type="text" name="name" value="<?php echo $_SESSION['user']['email'];?>">
+									<input class="form-control" type="text" name="email" value="<?php echo
+									$_SESSION['user']['email'];?>">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="control-label col-md-2">手机</label>
 								<div class="col-md-6">
-									<input class="form-control" type="text" name="name" value="<?php echo $_SESSION['user']['mobile'];?>">
+									<input class="form-control" type="text" name="mobile" value="<?php echo
+									$_SESSION['user']['mobile'];?>">
 								</div>
 							</div>
 
 							<div class="form-group">
 								 <label class="control-label col-md-2">性别</label>
 					   			 <div class="col-md-6">
-						    			  <input class="radio radio-inline" type="radio" value="男" name="sex" checked="checked">男
-						    			  <input class="radio radio-inline" type="radio" value="女" name="sex">女
+									 <?php
+										if($_SESSION['user']['sex']==1||empty($_SESSION['user']['sex'])) {
+									 ?>
+											<input class="radio radio-inline" type="radio" value="1" name="sex"
+												   checked="checked">男
+											<input class="radio radio-inline" type="radio" value="2" name="sex">女
+									 <?php
+										}else {
+									 ?>
+											<input class="radio radio-inline" type="radio" value="1" name="sex">男
+											<input class="radio radio-inline" type="radio" value="2" name="sex"
+												   checked="checked">女
+									 <?php
+										}
+									 ?>
 					   			 </div>
 							</div>
 

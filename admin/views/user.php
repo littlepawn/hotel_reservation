@@ -41,7 +41,7 @@
           <td><?php echo $user['email'];?></td>
           <td><img class="thumbnail" src="<?php echo empty($user['avatar'])?"/public/i/default.jpg":$user['avatar'];
             ?>" width="10%" height="10%"></td>
-          <td><a class="btn btn-danger">删除</a></td>
+          <td><a class="btn btn-danger" href="?c=admin&m=del_user&uid=<?php echo $user['_id'];?>">删除</a></td>
         </tr>
         <?php } ?>
       </table>

@@ -56,11 +56,11 @@
 	<input runat="server" id="divScrollValue" type="hidden" value="" />
 	<div class="menu_dropdown bk_2">
 		<dl id="menu-product">
-			<dt><i class="Hui-iconfont">&#xe620;</i> 酒店管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe620;</i> 商家管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a _href="?c=admin&m=hotel" href="javascript:void(0)">商家管理</a></li>
-					<li><a _href="product-category.html" href="javascript:void(0)">房间管理</a></li>
+					<li><a _href="?c=admin&m=hotel" href="javascript:void(0)">酒店管理</a></li>
+					<li><a _href="?c=admin&m=apartment" href="javascript:void(0)">房间管理</a></li>
 				</ul>
 			</dd>
 		</dl>

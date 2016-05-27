@@ -74,7 +74,8 @@
 					    </li>
 					</ul>
 					<div class="col-md-4" id="head-sculpture">
-						<img class="img-thumbnail" src="/public/i/default.jpg" alt="..." >
+						<img class="img-thumbnail" src="<?php echo empty($_SESSION['user']['avatar'])
+								?'/public/i/default.jpg':$_SESSION['user']['avatar'];?>" alt="..." >
 						<!--<button class="btn btn-primary btn-lg" type="button" id="change">更改头像</button>-->
 					</div>
 					<div class="col-md-8">
@@ -82,7 +83,7 @@
 							<div class="form-group">
 								<label class="control-label col-md-2">用户名</label>
 								<label class="control-label col-md-2" id="username">
-									<?php echo $user['username'];?>
+									<?php echo $_SESSION['user']['name'];?>
 								</label>
 								<!--<div class="col-md-4"></div>-->
 							</div>
@@ -98,26 +99,35 @@
 							<div class="form-group">
 								<label class="control-label col-md-2">邮箱</label>
 								<label class="control-label col-md-3" id="email">
-                                    <?php echo $user['email'];?>
+                                    <?php echo $_SESSION['user']['email'];?>
                                 </label>
-								<!--<div class="col-md-2 col-md-offset-1">
-									<a class="btn btn btn-default" href="">修改</a>
-								</div>-->
 							</div>
 
 							<div class="form-group">
 								<label class="control-label col-md-2">手机</label>
-								<label class="control-label col-md-2" id="phone">12345678901</label>
-								<!--<div class="col-md-2 col-md-offset-1">
-									<a class="btn btn btn-default" href="">修改</a>
-								</div>-->
+								<label class="control-label col-md-2" id="phone">
+									<?php echo $_SESSION['user']['mobile'];?>
+								</label>
 							</div>
 
 							<div class="form-group">
 								 <label class="control-label col-md-2">性别</label>
 					   			 <div class="col-md-6">
-					    			  <input class="radio radio-inline" type="radio" value="option1" name="sex" checked="checked" disabled="disabled">男
-					    			  <input class="radio radio-inline" type="radio" value="option1" name="sex" disabled="disabled">女
+									 <?php
+										if($_SESSION['user']['sex']==1||empty($_SESSION['user']['sex'])) {
+									 ?>
+											<input class="radio radio-inline" type="radio" value="男" name="sex"
+												   checked="checked" disabled="disabled">男
+											<input class="radio radio-inline" type="radio" value="女" name="sex" disabled="disabled">女
+									 <?php
+										}else {
+									 ?>
+											<input class="radio radio-inline" type="radio" value="男" name="sex" disabled="disabled">男
+											<input class="radio radio-inline" type="radio" value="女" name="sex"
+												   checked="checked" disabled="disabled">女
+									 <?php
+										}
+									 ?>
 					   			 </div>
 							</div>
 

@@ -30,6 +30,42 @@ class Muser extends CI_Model{
 		return $query->result_array();
 	}
 
+	public function get_apartment_list(){
+		$query=$this->_db_hotel->get("apartment");
+		return $query->result_array();
+	}
+
+	public function get_citys(){
+        $query=$this->_db_hotel->get("city");
+        return $query->result_array();
+    }
+
+	public function get_areas_by_cid($id){
+        $this->_db_hotel->where("fatherID",$id);
+        $query=$this->_db_hotel->get("area");
+        return $query->result_array();
+    }
+
+	public function insert_hotel($data){
+		$this->_db_hotel->insert("hotel",$data);
+	}
+
+	public function insert_apartment($data){
+		$this->_db_hotel->insert("apartment",$data);
+	}
+
+	public function del_user($uid){
+		$this->_db_hotel->delete("user",array("_id"=>$uid));
+	}
+
+	public function del_hotel($hid){
+		$this->_db_hotel->delete("hotel",array("_id"=>$hid));
+	}
+
+	public function del_apartment($aid){
+		$this->_db_hotel->delete("apartment",array("_id"=>$aid));
+	}
+
 	public function get_comment_list(){
 		$query=$this->_db_hotel->get("comment");
 		return $query->result_array();
