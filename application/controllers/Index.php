@@ -80,7 +80,6 @@ class Index extends CI_Controller{
                     $param['cityID'] = $cityID;
                     $this->index_filter($param);*/
                     $param['type']=4;
-                    $cityID=$this->get_current_cityID();
                     $hotels=$this->get_hotels_by_cityID($cityID,$hotelname,$price,$level);
                     $hotels=$this->add_comment_count($hotels);
                     $param['hotels']=$hotels;

@@ -32,8 +32,7 @@
           <td><?php echo $apartment['type'];?></td>
           <td><?php echo $apartment['desp'];?></td>
           <td>￥ <?php echo $apartment['price'];?></td>
-          <td><img class="thumbnail" src="<?php echo empty($apartment['image'])?"/public/i/default.jpg":$apartment['image'];
-            ?>" ></td>
+          <td><img class="thumbnail" src="<?php echo empty($apartment['image'])?"/public/i/default.jpg":$apartment['image'];?>" width="100px" height="80px"></td>
           <td><?php echo $apartment['hotel'];?></td>
           <td><a class="btn btn-danger" href="?c=admin&m=del_apartment&aid=<?php echo $apartment['_id'];?>">删除</a></td>
         </tr>

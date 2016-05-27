@@ -39,7 +39,7 @@
           <td><?php echo $hotel['title'];?></td>
           <td><?php echo $hotel['content'];?></td>
           <td><?php echo $hotel['address'];?></td>
-          <td><img class="thumbnail" src="<?php echo empty($hotel['image'])?"/public/i/default.jpg":$hotel['image'];?>" width="150px" height="120px"></td>
+          <td><img class="thumbnail" src="<?php echo empty($hotel['image'])?"/public/i/default.jpg":$hotel['image'];?>" width="100px" height="80px"></td>
             <td>￥ <?php echo $hotel['low_price'];?></td>
           <td>
             <a class="btn btn-success" href="?c=admin&m=add_apartment&hid=<?php echo $hotel['_id'];?>">添加房型</a><br>
