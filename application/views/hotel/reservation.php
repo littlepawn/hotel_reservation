@@ -106,7 +106,7 @@
                         </div>
                         <div class="col-md-2">
                             <table class="table table-hover">
-                                <tr><th><a class="btn btn-danger" href="?c=index&m=del_reservation&hid=<?php echo $value['_id'];?>&uid=<?php echo $_SESSION['user']['id']; ?>">取消订单</a></th></tr>
+                                <tr><th><a class="btn btn-danger" href="?c=index&m=del_reservation&aid=<?php echo $value['aid'];?>&uid=<?php echo $_SESSION['user']['id']; ?>">取消订单</a></th></tr>
                             </table>
                         </div>
                      </div>

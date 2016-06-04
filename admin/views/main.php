@@ -80,6 +80,14 @@
 				</ul>
 			</dd>
 		</dl>
+		<dl id="menu-member">
+			<dt><i class="Hui-iconfont">&#xe60d;</i> 订单管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a _href="?c=admin&m=reservation" href="javascript:;">订单列表</a></li>
+				</ul>
+			</dd>
+		</dl>
 	</div>
 </aside>
 <div class="dislpayArrow"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>

@@ -166,7 +166,7 @@
 					?>
           <div class="row" id="hotel-list">
             <div class="col-md-2">
-              <img class="img-thumbnail room-img" src="<?php echo empty($apartment['image'])?'/public/i/hotel/1.jpg':$apartment['image']; ?>" alt="..." width="150px" height="130px">
+              <img class="img-thumbnail room-img" src="<?php echo empty($apartment['image'])?'/public/i/hotel/1.jpg':$apartment['image']; ?>" alt="..." style="width: 150px;height: 100px">
             </div>
             <div class="col-md-8">
               <div>

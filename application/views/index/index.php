@@ -36,8 +36,8 @@
 			Top : -16,//弹出时间停靠的顶部边位置
 			fuhao : "-",//日期连接符默认为-
 			isTime : false,//是否开启时间值默认为false
-			beginY : 2010,//年份的开始默认为1949
-			endY :2015//年份的结束默认为2049
+			beginY : 2000,//年份的开始默认为1949
+			endY :2016//年份的结束默认为2049
 		});
 	});
 	</script>
@@ -106,7 +106,7 @@
 	<div class="container">
 		<br>
 		<div class="row">
-			<p>当前城市:<?php if(isset($_GET['area'])&&!empty($_GET['area'])){echo $_GET['area'];}else{echo $cityName;};
+			<p>当前城市:<?php if(isset($_GET['area'])&&!empty($_GET['area'])){echo $_GET['area'];}elseif(!isset($_GET['area'])){echo '徐州';}else{echo $cityName;};
 				?></p>
 		</div>
 
@@ -116,8 +116,8 @@
 				<div class="list-screen">
 					<div class="screen-top" style="position:relative;">
 						<span>目的地<input id="txtadress" type="text" value="<?php echo isset($_GET['area'])?$_GET['area']:'';?>"/></span>
-						<span>入住<input type="text" class="mh_date" id="start" readonly="true" value="<?php echo isset($_GET['start'])?$_GET['start']:'';?>"/></span>
-						<span>退房<input type="text" class="mh_date" id="end" readonly="true" value="<?php echo isset($_GET['end'])?$_GET['end']:'';?>"/></span>
+						<span>入住<input type="text" class="mh_date" id="start" readonly="true" value="<?php echo isset($_GET['start'])?$_GET['start']:date('Y-m-d',time());?>"/></span>
+						<span>退房<input type="text" class="mh_date" id="end" readonly="true" value="<?php echo isset($_GET['end'])?$_GET['end']:date('Y-m-d',time());?>"/></span>
 						<span>酒店名称<input id="hotelname" type="text" class="ju-name" value="<?php echo isset($_GET['hotelname'])?$_GET['hotelname']:'';?>"/></span>
 						<a href="javascript:;" id="submit-btn"/>搜索</a>
 					</div>
@@ -324,6 +324,11 @@
 				var hotelname=$("#hotelname").val();
 				var start=$("#start").val();
 				var end=$("#end").val();
+
+//				if(start==0||start==''||end==0||end==''){
+//					alert("起止时间不能为空");
+//					return;
+//				}
 
 				var param1=0;
 				var areaID=$('input[name="tabrad"]:checked');

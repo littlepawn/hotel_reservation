@@ -65,6 +65,14 @@ class Mhotel extends CI_Model{
         return $query->result_array();
     }
 
+    public function get_reservation_by_params($data){
+        $this->db->where("user_id",$data['user_id']);
+        $this->db->where("hotel_id",$data['hotel_id']);
+        $this->db->where("apartment_id",$data['apartment_id']);
+        $query=$this->db->get("reservation");
+        return $query->row_array();
+    }
+
     public function count_hotel($cityID){
         $this->db->where('cityID', $cityID);
         $this->db->from($this->_hotel_db);

@@ -100,6 +100,18 @@ class Admin extends CI_Controller{
 		return;
 	}
 
+	public function reservation(){
+		$reservations=$this->muser->get_reservation_list();
+//		var_dump($reservations);
+//		exit;
+		foreach ($reservations as $key=> $reservation){
+			$apartment=$this->muser->get_apartment_by_id($reservation['apartment_id']);
+			$reservations[$key]['type']=$this->transform_type($apartment['type']);
+		}
+		$data['reservations']=$reservations;
+		$this->load->view("reservation",$data);
+	}
+
 	public function resize(){
 		$config['image_library'] = 'gd2';
 		$config['source_image'] = '/path/to/image/mypic.jpg';
@@ -173,6 +185,13 @@ class Admin extends CI_Controller{
 		$aid=$_REQUEST['aid'];
 		$this->muser->del_apartment($aid);
 		$this->apartment();
+		return;
+	}
+
+	public function del_reservation(){
+		$rid=$_REQUEST['rid'];
+		$this->muser->del_reservation($rid);
+		$this->reservation();
 		return;
 	}
 

@@ -51,12 +51,20 @@ class Index extends CI_Controller{
     }
 
     public function filter(){
-//        var_dump($_REQUEST);
         $city=htmlentities(trim($_REQUEST['area']));
         $hotelname=htmlentities(trim($_REQUEST['hotelname']));
         $areaID=intval($_REQUEST['areaID']);
         $price=intval($_REQUEST['price']);
         $level=intval($_REQUEST['level']);
+
+        $start=htmlentities(trim($_REQUEST['start']));
+        $end=htmlentities(trim($_REQUEST['end']));
+        unset($_SESSION['start']);
+        unset($_SESSION['end']);
+        if(!empty($start))
+            $_SESSION['start']=$start;
+        if(!empty($end))
+            $_SESSION['end']=$end;
 
         $page=1;
         if(isset($_REQUEST['page']))
@@ -206,6 +214,7 @@ class Index extends CI_Controller{
             $hotel=$this->mhotel->get_hotel_info_by_id($value['hotel_id']);
             $apartment=$this->mhotel->get_apartment_info_by_id($value['apartment_id']);
             $hotel['type']=$this->transform_type($apartment['type']);
+            $hotel['aid']=$apartment['_id'];
             $hotel['price']=$apartment['price'];
             $hotel_array[]=$hotel;
         }
@@ -217,11 +226,31 @@ class Index extends CI_Controller{
         $hid=$_REQUEST['hid'];
         $aid=$_REQUEST['aid'];
         $user=$this->session->userdata("user");
+        if(empty($_SESSION['start'])){
+            $start=date("Y-m-d",time());
+        }else{
+            $start=$_SESSION['start'];
+        }
+
+        if(empty($_SESSION['end'])){
+            $end=date("Y-m-d",time()+24*60*60);
+        }else{
+            $end=$_SESSION['end'];
+        }
         $data=array(
             "user_id"=>$user['id'],
             "hotel_id"=>$hid,
             "apartment_id"=>$aid,
+            "start_time"=>$start,
+            "end_time"=>$end,
         );
+        $res=$this->mhotel->get_reservation_by_params($data);
+        if(!empty($res)){
+            echo "<script>alert('已经预订过该房间');</script>";
+            echo "<script>location.href='" . $_SERVER["HTTP_REFERER"] . "';</script>";
+            return;
+        }
+
         $rid=$this->muser->reserve($data);
         if($rid>0) {
             echo "<script>alert('预订成功');</script>";
@@ -254,7 +283,7 @@ class Index extends CI_Controller{
 
     public function del_reservation(){
         $uid=$_REQUEST['uid'];
-        $hid=$_REQUEST['hid'];
+        $hid=$_REQUEST['aid'];
         $this->muser->del_reservation($uid,$hid);
         echo "<script>location.href='".$_SERVER["HTTP_REFERER"]."';</script>";
     }
@@ -305,17 +334,24 @@ class Index extends CI_Controller{
 
     public function getPlace(){
         $ip=$this->getRealIp();
+//        echo $ip;
+//        exit;
         $place=$this->getIPLoc($ip);
+//        var_dump($place);
+//        exit;
         return $place[1];
     }
 
     public function get_current_cityID(){
         $citys=$this->marea->get_citys();
         $city=$this->getPlace();
+
         $cityID=320300;
-        foreach ($citys as $key=>$value){
-            if(mb_strpos($value['city'],$city)!==false){
-                $cityID=$value['cityID'];
+        if(!empty($city)) {
+            foreach ($citys as $key => $value) {
+                if (mb_strpos($value['city'], $city) !== false) {
+                    $cityID = $value['cityID'];
+                }
             }
         }
         return $cityID;
@@ -342,21 +378,22 @@ class Index extends CI_Controller{
 //        var_dump($citys);
         $city=$this->getPlace();
         $areas=array();
-        foreach ($citys as $key=>$value){
-            if(mb_strpos($value['city'],$city)!==false){
-                $areas=$this->marea->get_areas_by_cid($value['cityID']);
+        if(!empty($city)) {
+            foreach ($citys as $key => $value) {
+                if (mb_strpos($value['city'], $city) !== false) {
+                    $areas = $this->marea->get_areas_by_cid($value['cityID']);
+                }
             }
         }
-//        $area_array=array();
-//        foreach ($areas as $area){
-//            $area_array[]=$area['area'];
-//        }
-//        var_dump($area_array);
-//        return $area_array;
         if(empty($areas)){
             $areas=$this->marea->get_areas_by_cid(320300);
         }
         return $areas;
+    }
+
+    public function test1(){
+        $city=$this->getPlace();
+        var_dump($city);
     }
 
 }

@@ -33,7 +33,7 @@ class Muser extends CI_Model{
 
     public function del_reservation($uid,$hid){
         $this->db->where("user_id",$uid);
-        $this->db->where("hotel_id",$hid);
+        $this->db->where("apartment_id",$hid);
         $this->db->delete("reservation");
     }
 
